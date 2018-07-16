@@ -2,10 +2,11 @@ package com.example.ankush.rawanime.models;
 
 public class AnimeModel {
 
-    String episode;
-    String imgUrl;
-    String title;
-    String nextPageUrl;
+    private String episode;
+    private String imgUrl;
+    private String title;
+    private String nextPageUrl;
+
     public AnimeModel(String episode,String imgUrl,String title,String nextPageUrl){
         this.episode=episode;
         this.imgUrl= imgUrl;

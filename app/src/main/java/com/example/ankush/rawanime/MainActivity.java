@@ -3,6 +3,7 @@ package com.example.ankush.rawanime;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
@@ -22,27 +23,51 @@ public class MainActivity extends AppCompatActivity {
 
     private final String  mainPageUrl="https://www4.gogoanime.se/";
     RecyclerView recyclerView;
-
+    RecyclerViewAdapter adapter;
+    List<AnimeModel> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        list= new ArrayList<>();
+        adapter= new RecyclerViewAdapter(list,this);
+        recyclerView=findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         MyAsyncTask task= new MyAsyncTask();
         task.execute();
+
     }
 
 
-    //asynsc task
 
-    private class MyAsyncTask extends AsyncTask<Void,Void,Void>{
+    //asynsc task
+    private class MyAsyncTask extends AsyncTask<Void,List<AnimeModel>,Void>{
+
+        @Override
+        protected void onProgressUpdate(List<AnimeModel>... values) {
+            super.onProgressUpdate(values);
+            //since async works on different thread it cannot update the ui so we need to run the updating task on UI thread
+
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    // Stuff that updates the UI
+                    adapter.notifyDataSetChanged();
+
+                }
+            });
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            List<AnimeModel> data= new ArrayList<>();
 
             try {
                 Document doc = Jsoup.connect(mainPageUrl).get();
-                Elements container= doc.select("div.last_episodes.loaddub"); //
+                Elements container= doc.select("div.last_episodes.loaddub");
                 Elements container2=container.select("ul.items");
                 Elements dataContainer=container2.select("li");
                 for(Element element:dataContainer){
@@ -59,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
                     Element ImageLink= links.select("img").first();
                     String  imgLink=ImageLink.attr("src");
                     Log.d("links",imgLink);
-                    data.add(new AnimeModel(episode,imgLink,title,nextPageLink));
-
+                    list.add(new AnimeModel(episode,imgLink,title,nextPageLink));
+                    onProgressUpdate(list);
                 }
 
 
