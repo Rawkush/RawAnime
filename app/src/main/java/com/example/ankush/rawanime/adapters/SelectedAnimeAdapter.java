@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ankush.rawanime.Activity.watchOrDownload;
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.models.EpisodeDataModel;
 
@@ -28,7 +30,7 @@ public class SelectedAnimeAdapter  extends RecyclerView.Adapter<SelectedAnimeAda
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(context).inflate(R.layout.episode_items,parent,false);
-        return new SelectedAnimeAdapter.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
@@ -56,9 +58,10 @@ public class SelectedAnimeAdapter  extends RecyclerView.Adapter<SelectedAnimeAda
         @Override
         public void onClick(View v) {
             int p = getAdapterPosition();
-           // Intent intent = new Intent(context, AnimeSelected.class);
-            //intent.putExtra("url", items.get(p).getEpisodeUrl());
-            //context.startActivity(intent);
+            Toast.makeText(context,""+p,Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, watchOrDownload.class);
+            intent.putExtra("url", items.get(p).getEpisodeUrl());
+            context.startActivity(intent);
         }
     }
 
