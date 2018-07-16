@@ -1,4 +1,4 @@
-package com.example.ankush.rawanime;
+package com.example.ankush.rawanime.models;
 
 public class AnimeModel {
 
@@ -13,5 +13,19 @@ public class AnimeModel {
         this.nextPageUrl=nextPageUrl;
     }
 
+    public String getEpisode() {
+        return episode;
+    }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getNextPageUrl() {
+        return nextPageUrl;
+    }
 }
