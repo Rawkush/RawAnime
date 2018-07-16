@@ -4,15 +4,11 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
 import android.widget.TextView;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +16,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String mainPageUrl=null;
+    private final String  mainPageUrl="https://www4.gogoanime.se/";
+
     TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainPageUrl="https://www4.gogoanime.se/";
         textView = (TextView)findViewById(R.id.textView);
         MyAsyncTask task= new MyAsyncTask();
         task.execute();
@@ -48,10 +44,8 @@ public class MainActivity extends AppCompatActivity {
                      Elements container= doc.select("div.last_episodes.loaddub"); //
                      Elements container2=container.select("ul.items");
                      Elements dataContainer=container2.select("li");
-                     int x=0;
                      for(Element element:dataContainer){
-                        x++;
-                        Log.d("No of times loop runned",""+x);
+
                         Elements Episode=element.select("p.episode");
                         String episode= Episode.text();
 
@@ -62,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         Elements img=element.select("div.img");
                         Element links = img.select("a[href]").first(); // a with href
                         String nextPageLink=links.attr("href");
-
+                        nextPageLink=mainPageUrl+nextPageLink;
                         Element ImageLink= links.select("img").first();
                         String  imgLink=ImageLink.attr("src");
                         Log.d("links",imgLink);
