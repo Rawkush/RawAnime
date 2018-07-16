@@ -56,6 +56,17 @@ public class watchOrDownload extends AppCompatActivity {
             }
 
 
+            try {
+
+                Document doc = Jsoup.connect(videoUrl).get();
+                Elements container =doc.select("#myVideo");
+                String  videoLink=container.text();
+
+                Log.d("h",videoLink);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
             return null;
@@ -71,10 +82,9 @@ public class watchOrDownload extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Stuff that updates the UI
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse(), "video/*");
-                    startActivity(Intent.createChooser(intent, "Complete action using"));
-
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(videoUrl));
+                    startActivity(i);
                 }
             });
 
