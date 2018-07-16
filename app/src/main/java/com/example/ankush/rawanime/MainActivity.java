@@ -3,6 +3,7 @@ package com.example.ankush.rawanime;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 import org.jsoup.Jsoup;
@@ -17,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private final String  mainPageUrl="https://www4.gogoanime.se/";
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     String  imgLink=ImageLink.attr("src");
                     Log.d("links",imgLink);
                     data.add(new AnimeModel(episode,imgLink,title,nextPageLink));
+
                 }
 
 
