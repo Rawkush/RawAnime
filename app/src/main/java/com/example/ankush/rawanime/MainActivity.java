@@ -62,15 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("links",imgLink);
 
                      }
-                      //  textView.setText(s);
-                     //Elements links = elements.select("a[href]"); // a with href
-                     //Elements pngs = elements.select("img[src$=.png]");
-                     // img with src ending .png
 
-                  //   Element masthead = doc.select("div.masthead").first();
-                     // div with class=masthead
-
-                     Elements resultLinks = doc.select("h3.r > a"); // direct a after h3
 
                  } catch (IOException e) {
                      e.printStackTrace();
