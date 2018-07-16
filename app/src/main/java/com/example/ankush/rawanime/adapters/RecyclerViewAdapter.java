@@ -1,4 +1,4 @@
-package com.example.ankush.rawanime;
+package com.example.ankush.rawanime.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ankush.rawanime.Activity.AnimeSelected;
+import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.models.AnimeModel;
 
 import java.util.List;

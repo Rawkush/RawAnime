@@ -1,4 +1,4 @@
-package com.example.ankush.rawanime;
+package com.example.ankush.rawanime.Activity;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 
+import com.example.ankush.rawanime.R;
+import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 import com.example.ankush.rawanime.models.AnimeModel;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
