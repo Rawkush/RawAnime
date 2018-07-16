@@ -61,6 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             titles=(TextView) itemView.findViewById(R.id.title);
             episode=(TextView) itemView.findViewById(R.id.episode);
             imageView=(ImageView)itemView.findViewById(R.id.image_view);
+            itemView.setOnClickListener(this);
         }
 
 
