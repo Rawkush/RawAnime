@@ -7,17 +7,7 @@
     android:orientation="vertical"
     tools:context=".Activity.AnimeSelected">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:id="@+id/rangeLinearLayout">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Range"/>
 
-    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/_selected_recycler_view"
         android:layout_width="match_parent"
