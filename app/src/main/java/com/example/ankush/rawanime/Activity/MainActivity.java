@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
+import com.example.ankush.rawanime.fetch.fetchLatestAnimes;
 import com.example.ankush.rawanime.models.AnimeModel;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //asynsc task
-    private class MyAsyncTask extends AsyncTask<Void,List<AnimeModel>,Void>{
+    private class MyAsyncTask extends AsyncTask<Void,List<AnimeModel>,List<AnimeModel>>{
 
         @Override
         protected void onProgressUpdate(List<AnimeModel>... values) {
@@ -63,43 +64,33 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-
-            try {
-                Document doc = Jsoup.connect(mainPageUrl).get();
-                Elements container= doc.select("div.last_episodes.loaddub");
-                Elements container2=container.select("ul.items");
-                Elements dataContainer=container2.select("li");
-                for(Element element:dataContainer){
-
-                    Elements Episode=element.select("p.episode");
-                    String episode= Episode.text();
-                    Elements titles=element.select("p.name");
-                    String title=titles.text();
-                    Log.d("title",title);
-                    Elements img=element.select("div.img");
-                    Element links = img.select("a[href]").first(); // a with href
-                    String nextPageLink=links.attr("href");
-                    nextPageLink=mainPageUrl+nextPageLink;
-                    Element ImageLink= links.select("img").first();
-                    String  imgLink=ImageLink.attr("src");
-                    Log.d("links",imgLink);
-                    list.add(new AnimeModel(episode,imgLink,title,nextPageLink));
-                    onProgressUpdate(list);
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        protected List<AnimeModel> doInBackground(Void... voids) {
 
 
 
 
+
+            list.addAll(fetchLatestAnimes.fetch(mainPageUrl));
+            onProgressUpdate(list);
             return null;
 
         }
 
+
+        @Override
+        protected void onPostExecute(List<AnimeModel> animeModelsList) {
+            super.onPostExecute(animeModelsList);
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    // Stuff that updates the UI
+                    adapter.notifyDataSetChanged();
+
+                }
+            });
+        }
     }
 
 
