@@ -15,7 +15,14 @@ import java.util.List;
 
 public class fetchLatestAnimes {
 
-    public static List<AnimeModel> fetch(String url) {
+
+    public List<AnimeModel> list;
+public fetchLatestAnimes(){
+    list= new ArrayList<>();
+
+}
+
+    public void setList(String url) {
 
         List<AnimeModel> list=new ArrayList<>();
         try {
@@ -24,7 +31,6 @@ public class fetchLatestAnimes {
             Elements container2 = container.select("ul.items");
             Elements dataContainer = container2.select("li");
             for (Element element : dataContainer) {
-
                 Elements Episode = element.select("p.episode");
                 String episode = Episode.text();
                 Elements titles = element.select("p.name");
@@ -44,7 +50,10 @@ public class fetchLatestAnimes {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return list;
     }
 
+
+    public List<AnimeModel> getList() {
+        return list;
+    }
 }

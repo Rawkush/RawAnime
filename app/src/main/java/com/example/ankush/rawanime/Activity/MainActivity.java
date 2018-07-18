@@ -65,28 +65,35 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected List<AnimeModel> doInBackground(Void... voids) {
+
+       /*
             int pageNumber=0;
             List<AnimeModel> list=new ArrayList<>();
             try {
                 Document doc = Jsoup.connect(mainPageUrl).get();
                 Elements container = doc.select("div.pagination.recent");
                 Elements pagesContainer= container.select("li");
+               fetchLatestAnimes obj= new fetchLatestAnimes();
                 for(Element pages:pagesContainer){
                     pageNumber++;
-
-                    list.addAll(fetchLatestAnimes.fetch(mainPageUrl+"?page="+pageNumber));
+                    list.addAll(obj.fetch(mainPageUrl+"?page="+pageNumber));
                     onProgressUpdate(list);
+                    Log.d("akd",""+pageNumber);
+
                 }
-                Log.d("akd",""+pagesContainer.html());
 
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+*/
+       fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
+       fetchAnimes.setList(mainPageUrl);
+       list.clear();
+        list.addAll(fetchAnimes.getList());
 
-            return null;
-
+        return list;
         }
 
 
