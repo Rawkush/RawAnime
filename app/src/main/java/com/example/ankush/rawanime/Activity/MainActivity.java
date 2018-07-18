@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                     // Stuff that updates the UI
                     adapter.notifyDataSetChanged();
 
@@ -79,11 +79,10 @@ public class MainActivity extends AppCompatActivity {
                 Elements pagesContainer= container.select("li");
                 for(Element pages:pagesContainer){
                     pageNumber++;
-
                     fetchAnimes.setList(mainPageUrl+pagedetails+pageNumber);
                     list.clear();
                     //fetchAnimes.getList();
-                   list.addAll(fetchAnimes.getList());
+                    list.addAll(fetchAnimes.getList());
                     onProgressUpdate();
 
                 }
