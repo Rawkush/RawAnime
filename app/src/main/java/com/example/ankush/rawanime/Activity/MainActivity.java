@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerViewAdapter adapter;
     List<AnimeModel> list;
     final String pagedetails="page-recent-release-ongoing.html?page=";
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         MyAsyncTask task= new MyAsyncTask();
         task.execute();
 
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-
+                    progressBar.setVisibility(View.VISIBLE);
                     // Stuff that updates the UI
                     adapter.notifyDataSetChanged();
 
@@ -67,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
-
             int pageNumber=0;
             try {
                 Document doc = Jsoup.connect(mainPageUrl).get();
