@@ -40,7 +40,11 @@ public fetchLatestAnimes(){
                 Element img=data.select("div.thumbnail-popular").first();
                 String temp=img.after("url").toString();
                 String imgUrl=getURL(temp);
-                Log.d("data3",title);
+                Elements episode = element.select("p");
+                String latestEpisode=episode.get(1).text();
+                Log.d("data3",""+episode.get(1).text());
+                list.add(new AnimeModel(latestEpisode, imgUrl, title, nextPageLink));
+
 /*
                 Elements Episode = element.select("p.episode");
                 String episode = Episode.text();
