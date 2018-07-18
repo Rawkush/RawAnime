@@ -65,14 +65,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected List<AnimeModel> doInBackground(Void... voids) {
-
-
-
+            int pageNumber=0;
             List<AnimeModel> list=new ArrayList<>();
             try {
                 Document doc = Jsoup.connect(mainPageUrl).get();
                 Elements container = doc.select("div.pagination.recent");
-                Log.d("akd",""+container.html());
+                Elements pagesContainer= container.select("li");
+                for(Element pages:pagesContainer){
+                    pageNumber++;
+
+                    list.addAll(fetchLatestAnimes.fetch(mainPageUrl+"?page="+pageNumber));
+                    onProgressUpdate(list);
+                }
+                Log.d("akd",""+pagesContainer.html());
 
 
             } catch (IOException e) {
@@ -80,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            list.addAll(fetchLatestAnimes.fetch(mainPageUrl));
-            onProgressUpdate(list);
             return null;
 
         }
@@ -94,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-
                     // Stuff that updates the UI
                     adapter.notifyDataSetChanged();
 
