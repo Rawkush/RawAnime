@@ -16,7 +16,8 @@ import java.util.List;
 public class fetchLatestAnimes {
 
 
-    public List<AnimeModel> list;
+    private  List<AnimeModel> list;
+
 public fetchLatestAnimes(){
     list= new ArrayList<>();
 
@@ -24,7 +25,6 @@ public fetchLatestAnimes(){
 
     public void setList(String url) {
 
-        List<AnimeModel> list=new ArrayList<>();
         try {
             Document doc = Jsoup.connect(url).get();
             Elements container = doc.select("div.last_episodes.loaddub");

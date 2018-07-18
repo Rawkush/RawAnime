@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
        fetchAnimes.setList(mainPageUrl);
        list.clear();
        list.addAll(fetchAnimes.getList());
-
         return list;
         }
 
