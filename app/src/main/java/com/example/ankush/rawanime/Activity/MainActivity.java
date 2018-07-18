@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
     List<AnimeModel> list;
+    final String pagedetails="page-recent-release-ongoing.html?page=";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     //asynsc task
-    private class MyAsyncTask extends AsyncTask<Void,List<AnimeModel>,List<AnimeModel>>{
+    private class MyAsyncTask extends AsyncTask<Void,Void,Void>{
 
         @Override
-        protected void onProgressUpdate(List<AnimeModel>... values) {
+        protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
             //since async works on different thread it cannot update the ui so we need to run the updating task on UI thread
 
@@ -64,28 +65,50 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected List<AnimeModel> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
+            fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
 
-       fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
-       fetchAnimes.setList(mainPageUrl);
-       list.clear();
-       list.addAll(fetchAnimes.getList());
-        return list;
+            int pageNumber=0;
+            List<AnimeModel> list=new ArrayList<>();
+            try {
+                Document doc = Jsoup.connect(mainPageUrl).get();
+                Elements container = doc.select("div.pagination.recent");
+                Elements pagesContainer= container.select("li");
+                for(Element pages:pagesContainer){
+                    pageNumber++;
+
+                    fetchAnimes.setList(mainPageUrl+pagedetails+pageNumber);
+                    list.clear();
+                    list.addAll(fetchAnimes.getList());
+                    onProgressUpdate();
+
+                }
+
+                Log.d("akd",""+pagesContainer.html());
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
         }
 
-
         @Override
-        protected void onPostExecute(List<AnimeModel> animeModelsList) {
-            super.onPostExecute(animeModelsList);
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
             runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
+
                     // Stuff that updates the UI
                     adapter.notifyDataSetChanged();
 
                 }
             });
+
         }
     }
 
