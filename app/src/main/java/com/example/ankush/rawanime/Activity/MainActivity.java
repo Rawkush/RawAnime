@@ -68,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+            List<AnimeModel> list=new ArrayList<>();
+            try {
+                Document doc = Jsoup.connect(mainPageUrl).get();
+                Elements container = doc.select("div.pagination.recent");
+                Log.d("akd",""+container.html());
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
             list.addAll(fetchLatestAnimes.fetch(mainPageUrl));
