@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                     fetchAnimes.setList(mainPageUrl+pagedetails+pageNumber);
                     list.clear();
-                    list.addAll(fetchAnimes.getList());
+                    fetchAnimes.getList();
+                   // list.addAll(fetchAnimes.getList());
                     onProgressUpdate();
 
                 }

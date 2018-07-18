@@ -27,10 +27,21 @@ public fetchLatestAnimes(){
 
         try {
             Document doc = Jsoup.connect(url).get();
-            Elements container = doc.select("div.last_episodes.loaddub");
-            Elements container2 = container.select("ul.items");
-            Elements dataContainer = container2.select("li");
+            Elements container = doc.select("div.added_series_body.popular");
+            Elements dataContainer = container.select("li");
+
             for (Element element : dataContainer) {
+
+                Elements dataCont=element.select("a[href]");
+                Element data=dataCont.get(0);
+                String title=dataCont.get(1).text();
+                String nextPageLink = data.attr("href");
+                Log.d("data",data.attr("href"));
+                Element img=data.select("div.thumbnail-popular").first();
+                String temp=img.after("url").toString();
+                String imgUrl=getURL(temp);
+                Log.d("data3",title);
+/*
                 Elements Episode = element.select("p.episode");
                 String episode = Episode.text();
                 Elements titles = element.select("p.name");
@@ -43,9 +54,9 @@ public fetchLatestAnimes(){
                 Element ImageLink = links.select("img").first();
                 String imgLink = ImageLink.attr("src");
                 Log.d("links", imgLink);
-                list.add(new AnimeModel(episode, imgLink, title, nextPageLink));
+               // list.add(new AnimeModel(episode, imgLink, title, nextPageLink));
+  */
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,4 +67,16 @@ public fetchLatestAnimes(){
     public List<AnimeModel> getList() {
         return list;
     }
+
+    private String getURL(String murl){
+
+        if(murl.contains("url")){
+            String[] temp=murl.split("url");
+           String[] strings= temp[1].split("'");
+           return strings[1];
+        }
+
+    return null;
+    }
+
 }
