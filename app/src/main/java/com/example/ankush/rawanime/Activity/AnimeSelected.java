@@ -32,6 +32,7 @@ public class AnimeSelected extends AppCompatActivity {
     RecyclerView recyclerView;
     SelectedAnimeAdapter adapter;
     String episodeUrl;
+    final String baseUrl="https://www4.gogoanimes.tv/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +46,11 @@ public class AnimeSelected extends AppCompatActivity {
         Intent intent = getIntent();
         final String   url = intent.getStringExtra("url");
         Log.d("url",url);
-        episodeUrl=url;
-        episodeUrl=getGeneralUrl(url); // getting general url of the page
+        episodeUrl=baseUrl+url;
         Log.d("oldUrl",url);
         Log.d("new",episodeUrl);
         MyAsyncTask task= new MyAsyncTask();
-        task.execute(url);
+        task.execute(episodeUrl);
 
     }
 

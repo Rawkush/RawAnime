@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
 
             int pageNumber=0;
-            List<AnimeModel> list=new ArrayList<>();
             try {
                 Document doc = Jsoup.connect(mainPageUrl).get();
                 Elements container = doc.select("div.pagination.recent");
@@ -79,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
                     fetchAnimes.setList(mainPageUrl+pagedetails+pageNumber);
                     list.clear();
-                    fetchAnimes.getList();
-                   // list.addAll(fetchAnimes.getList());
+                    //fetchAnimes.getList();
+                   list.addAll(fetchAnimes.getList());
                     onProgressUpdate();
 
                 }
