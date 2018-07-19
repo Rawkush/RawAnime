@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             //since async works on different thread it cannot update the ui so we need to run the updating task on UI thread
 
             runOnUiThread(new Runnable() {
-
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.GONE);

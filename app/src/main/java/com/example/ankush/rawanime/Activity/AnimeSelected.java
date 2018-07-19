@@ -32,7 +32,7 @@ public class AnimeSelected extends AppCompatActivity {
     RecyclerView recyclerView;
     SelectedAnimeAdapter adapter;
     String episodeUrl;
-    final String baseUrl="https://www4.gogoanimes.tv/";
+    final String baseUrl="https://www4.gogoanimes.tv";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class AnimeSelected extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         Intent intent = getIntent();
-        final String   url = intent.getStringExtra("url");
+        final String   url = intent.getStringExtra("url");  // url part like....//onepiece/category/season
         Log.d("url",url);
         episodeUrl=baseUrl+url;
         Log.d("oldUrl",url);
@@ -95,15 +95,13 @@ public class AnimeSelected extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
                     // Stuff that updates the UI
+                    episodeUrl=getProperUrl(episodeUrl);
                     for(int i=1;i<=lastEpisode;i++){
-
-                        episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-"+i));
+                        episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-episode-"+i));
                     }
                     Collections.reverse(episodesData);
                     adapter.notifyDataSetChanged();
@@ -114,7 +112,7 @@ public class AnimeSelected extends AppCompatActivity {
         }
 
     }
-
+/*
 public String getGeneralUrl(String murl){
     String[] temp=murl.split("-");
       String URL=null;
@@ -142,5 +140,12 @@ return URL;
             return false;
         }
     }
+*/
+
+private  String getProperUrl(String url){
+ return url.replaceFirst("category/","");
+
+
+}
 
 }
