@@ -26,13 +26,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class AnimeSelected extends AppCompatActivity {
-
     List<EpisodeDataModel> episodesData;
     int lastEpisode;
     RecyclerView recyclerView;
     SelectedAnimeAdapter adapter;
     String episodeUrl;
     final String baseUrl="https://www4.gogoanimes.tv";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +132,6 @@ public String getGeneralUrl(String murl){
 
 return URL;
 }
-
     public  boolean parseStrToInt(String str) {
         if (str.matches("\\d+")) {
             return true;
@@ -142,10 +141,10 @@ return URL;
     }
 */
 
-private  String getProperUrl(String url){
- return url.replaceFirst("category/","");
+    private  String getProperUrl(String url){
+      return url.replaceFirst("category/","");
 
 
-}
+        }
 
 }

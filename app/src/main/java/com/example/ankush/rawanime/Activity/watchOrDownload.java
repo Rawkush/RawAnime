@@ -85,6 +85,7 @@ public class watchOrDownload extends AppCompatActivity {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(videoUrl));
                     startActivity(i);
+                    finish();
                 }
             });
 
