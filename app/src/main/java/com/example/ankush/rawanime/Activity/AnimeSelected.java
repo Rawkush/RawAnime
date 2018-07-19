@@ -44,7 +44,7 @@ public class AnimeSelected extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         Intent intent = getIntent();
-        final String   url = intent.getStringExtra("url");  // url part like....//onepiece/category/season
+        final String url = intent.getStringExtra("url");  // url part like..../onepiece/category/season
         Log.d("url",url);
         episodeUrl=baseUrl+url;
         Log.d("oldUrl",url);

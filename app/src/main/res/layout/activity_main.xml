@@ -7,21 +7,54 @@
     tools:context=".Activity.MainActivity"
     android:background="@color/colorPrimaryDark">
 
-   <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
-       android:id="@+id/progressBar"
-       style="@style/SpinKitView.Large.Wave"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_centerInParent="true"
-       android:layout_gravity="center"
-       app:SpinKit_Color="@color/progressBarColor" />
+    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progressBar"
+        style="@style/SpinKitView.Large.Wave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/progressBarColor" />
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/recycler_view"
+    <LinearLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-   </android.support.v7.widget.RecyclerView>
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <android.support.design.widget.AppBarLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/searchBarTextHighlightColor">
 
 
+           <com.mancj.materialsearchbar.MaterialSearchBar
+               android:id="@+id/searchBar"
+               style="@style/MaterialSearchBarLight"
+               android:layout_width="match_parent"
+               android:layout_height="48dp"
+               app:mt_hint="Zoro"
+               app:mt_maxSuggestionsCount="10"
+               app:mt_backIconTint="@color/colorWhite"
+               app:mt_clearIconTint="@color/colorWhite"
+               app:mt_hintColor="@color/colorWhite"
+               app:mt_placeholder="RawAnime         "
+               app:mt_placeholderColor="@color/white"
+               app:mt_roundedSearchBarEnabled="true"
+               app:mt_searchBarColor="@color/colorPrimary"
+               app:mt_searchIconTint="@color/colorWhite"
+               app:mt_textColor="@color/colorWhite" />
+
+
+       </android.support.design.widget.AppBarLayout>
+
+
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/recycler_view"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+       </android.support.v7.widget.RecyclerView>
+
+
+
+   </LinearLayout>
 
 </RelativeLayout>
