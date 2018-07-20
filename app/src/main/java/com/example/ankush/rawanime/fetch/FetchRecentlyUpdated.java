@@ -1,3 +1,5 @@
+package com.example.ankush.rawanime.fetch;
+
 import android.util.Log;
 
 import com.example.ankush.rawanime.models.AnimeModel;
@@ -11,11 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FetchRecentlyUploaded {
+public class FetchRecentlyUpdated {
 
 
     public List<AnimeModel> list;
-    public FetchRecentlyUploaded(){
+    public FetchRecentlyUpdated(){
         list= new ArrayList<>();
 
     }

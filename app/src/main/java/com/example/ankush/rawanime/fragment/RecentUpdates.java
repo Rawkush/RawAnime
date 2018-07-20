@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
+import com.example.ankush.rawanime.fetch.FetchRecentlyUpdated;
 import com.example.ankush.rawanime.fetch.fetchLatestAnimes;
 import com.example.ankush.rawanime.models.AnimeModel;
 
@@ -83,7 +84,7 @@ public class RecentUpdates extends Fragment{
 
         @Override
         protected Void doInBackground(Void... voids) {
-            fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
+            FetchRecentlyUpdated fetchAnimes=new FetchRecentlyUpdated();
             fetchAnimes.setList(mainPageUrl);
             list.clear();
             list.addAll(fetchAnimes.getList());
