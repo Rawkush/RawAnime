@@ -24,7 +24,6 @@ public class FetchRecentlyUpdated {
 
     public void setList(String url) {
 
-        List<AnimeModel> list=new ArrayList<>();
         try {
             Document doc = Jsoup.connect(url).get();
             Elements container = doc.select("div.last_episodes.loaddub");
