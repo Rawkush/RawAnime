@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +40,7 @@ public class PopularOnGoing extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            rootView=inflater.inflate(R.layout.fragment_popular_ongoing,container,false);
+            rootView=inflater.inflate(R.layout.anime_list,container,false);
             return rootView;
     }
 
