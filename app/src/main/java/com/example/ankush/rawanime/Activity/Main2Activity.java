@@ -17,22 +17,9 @@ public class Main2Activity extends TabView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
         initTabView();
-        addFragment(new FragmentModel(new PopularOnGoing(),"Popular Ongoings"));
+        addFragment(new FragmentModel(new PopularOnGoing(),"Popular Ongoing"));
     }
 
-    @Override
-    public void initViewPager() {
-        super.initViewPager();
-        // initialise your viewpager here
-        viewPager=(ViewPager)findViewById(R.id.viewpager);
-    }
-    @Override
-    public void initTabView() {
-        super.initTabView();
-        //initialise your tabLayout Here and set it up with viepager, eg below
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-    }
+
 }

@@ -41,7 +41,7 @@ public class PopularOnGoing extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            rootView=inflater.inflate(R.layout.activity_main,container,false);
+            rootView=inflater.inflate(R.layout.fragment_popular_ongoing,container,false);
             return rootView;
     }
 
