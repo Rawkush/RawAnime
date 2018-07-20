@@ -1,4 +1,4 @@
-package com.example.ankush.rawanime.Activity;
+package com.example.ankush.rawanime.fragment;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Fragment {
+public class PopularOnGoing extends Fragment {
 
     private final String  mainPageUrl="https://www4.gogoanime.se/";
     RecyclerView recyclerView;
@@ -58,8 +58,6 @@ public class MainActivity extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         MyAsyncTask task= new MyAsyncTask();
         task.execute();
-
-
     }
 
     //asynsc task
