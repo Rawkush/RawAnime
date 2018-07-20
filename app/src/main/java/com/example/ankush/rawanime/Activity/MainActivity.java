@@ -1,12 +1,17 @@
 package com.example.ankush.rawanime.Activity;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.ankush.rawanime.R;
@@ -22,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Fragment {
 
     private final String  mainPageUrl="https://www4.gogoanime.se/";
     RecyclerView recyclerView;
@@ -30,24 +35,32 @@ public class MainActivity extends AppCompatActivity {
     List<AnimeModel> list;
     final String pagedetails="page-recent-release-ongoing.html?page=";
     ProgressBar progressBar;
+    View rootView;
+
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            rootView=inflater.inflate(R.layout.activity_main,container,false);
+            return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         list= new ArrayList<>();
-        adapter= new RecyclerViewAdapter(list,this);
-        recyclerView=findViewById(R.id.recycler_view);
+        adapter= new RecyclerViewAdapter(list,getContext());
+        recyclerView=view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        progressBar=findViewById(R.id.progressBar);
+        progressBar=view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         MyAsyncTask task= new MyAsyncTask();
         task.execute();
 
+
     }
-
-
 
     //asynsc task
     private class MyAsyncTask extends AsyncTask<Void,Void,Void>{
@@ -57,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
             //since async works on different thread it cannot update the ui so we need to run the updating task on UI thread
 
-            runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.GONE);
@@ -100,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            runOnUiThread(new Runnable() {
+           getActivity().runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
