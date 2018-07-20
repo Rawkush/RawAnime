@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.AnimeSelected" />
-        <activity android:name=".Activity.watchOrDownload"></activity>
+        <activity android:name=".Activity.watchOrDownload" />
+        <activity android:name=".Activity.Main2Activity"></activity>
     </application>
 
 </manifest>
