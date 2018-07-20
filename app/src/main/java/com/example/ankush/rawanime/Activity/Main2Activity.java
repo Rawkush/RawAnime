@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.fragment.PopularOnGoing;
+import com.example.ankush.rawanime.fragment.RecentUpdates;
 import com.example.tabviewlibrary.TabView;
 import com.example.tabviewlibrary.model.FragmentModel;
 
@@ -18,6 +19,8 @@ public class Main2Activity extends TabView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initTabView();
+        addFragment(new FragmentModel(new RecentUpdates(),"Recently Updated"));
+
         addFragment(new FragmentModel(new PopularOnGoing(),"Popular Ongoing"));
     }
 
