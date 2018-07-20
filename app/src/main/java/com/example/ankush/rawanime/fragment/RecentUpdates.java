@@ -84,29 +84,9 @@ public class RecentUpdates extends Fragment{
         @Override
         protected Void doInBackground(Void... voids) {
             fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
-            int pageNumber=0;
-            try {
-                Document doc = Jsoup.connect(mainPageUrl).get();
-                Elements container = doc.select("div.pagination.recent");
-                Elements pagesContainer= container.select("li");
-                for(Element pages:pagesContainer){
-                    pageNumber++;
-                    fetchAnimes.setList(mainPageUrl+pagedetails+pageNumber);
-                    list.clear();
-                    //fetchAnimes.getList();
-                    list.addAll(fetchAnimes.getList());
-                    onProgressUpdate();
-
-                }
-
-                Log.d("akd",""+pagesContainer.html());
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
+            fetchAnimes.setList(mainPageUrl);
+            list.clear();
+            list.addAll(fetchAnimes.getList());
             return null;
         }
 

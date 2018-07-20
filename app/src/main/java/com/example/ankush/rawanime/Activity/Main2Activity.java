@@ -20,7 +20,6 @@ public class Main2Activity extends TabView {
         super.onCreate(savedInstanceState);
         initTabView();
         addFragment(new FragmentModel(new RecentUpdates(),"Recently Updated"));
-
         addFragment(new FragmentModel(new PopularOnGoing(),"Popular Ongoing"));
     }
 
