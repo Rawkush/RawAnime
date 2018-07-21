@@ -4,6 +4,10 @@ Anime Streaming app to watch all the animes without any ads for free
 this app just scrapes website gogoanime to fetch the animes and few of their details
 
 # Screenshot
+<h1 align="center">
+<img src="/.github/video.gif" width="280" height="498" alt="Video 1"/>
+
+</h1>
 
 
 # Currently underdevelopment 
