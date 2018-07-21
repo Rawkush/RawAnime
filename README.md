@@ -5,7 +5,7 @@ this app just scrapes website gogoanime to fetch the animes and few of their det
 
 # Screenshot
 <h1 align="center">
-<img src="/.github/ezgif.com-video-to-gif.gif" width="280" height="498" alt="Video 1"/>
+<img src="/github/ezgif.com-video-to-gif.gif" width="280" height="498" alt="Video 1"/>
 
 </h1>
 
