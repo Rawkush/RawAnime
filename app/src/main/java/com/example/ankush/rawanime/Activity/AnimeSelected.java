@@ -46,12 +46,19 @@ public class AnimeSelected extends AppCompatActivity {
         Intent intent = getIntent();
         final String url = intent.getStringExtra("url");  // url part like..../onepiece/category/season
         Log.d("url",url);
-        episodeUrl=baseUrl+url;
-        Log.d("oldUrl",url);
-        Log.d("new",episodeUrl);
-        MyAsyncTask task= new MyAsyncTask();
-        task.execute(episodeUrl);
+        MyAsyncTask task = new MyAsyncTask();
 
+        if(url.contains("https"))
+        {
+            episodeUrl=getGeneralUrl(url); // getting general url of the page
+            Log.d("new", episodeUrl);
+            task.execute(url);
+        }
+        else {
+            episodeUrl = baseUrl + url;
+            Log.d("new", episodeUrl);
+            task.execute(episodeUrl);
+        }
     }
 
     private class MyAsyncTask extends AsyncTask<String, List<AnimeModel>, Void> {
@@ -85,9 +92,6 @@ public class AnimeSelected extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-
-
             return null;
 
         }
@@ -102,6 +106,7 @@ public class AnimeSelected extends AppCompatActivity {
                     episodeUrl=getProperUrl(episodeUrl);
                     for(int i=1;i<=lastEpisode;i++){
                         episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-episode-"+i));
+
                     }
                     Collections.reverse(episodesData);
                     adapter.notifyDataSetChanged();
@@ -112,7 +117,7 @@ public class AnimeSelected extends AppCompatActivity {
         }
 
     }
-/*
+
 public String getGeneralUrl(String murl){
     String[] temp=murl.split("-");
       String URL=null;
@@ -139,7 +144,7 @@ return URL;
             return false;
         }
     }
-*/
+
 
     private  String getProperUrl(String url){
       return url.replaceFirst("category/","");
