@@ -1,5 +1,6 @@
 package com.example.ankush.rawanime.Activity;
 
+import android.content.pm.ActivityInfo;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class Main2Activity extends TabView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Make to run your application only in portrait mode
         initTabView();
         addFragment(new FragmentModel(new RecentUpdates(),"Recently Updated"));
         addFragment(new FragmentModel(new PopularOnGoing(),"Popular Ongoing"));
