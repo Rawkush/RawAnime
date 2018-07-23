@@ -4,30 +4,51 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.ankush.rawanime.R;
+import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 import com.example.ankush.rawanime.fetch.FetchRecentlyUpdated;
+import com.example.ankush.rawanime.fragment.RecentUpdates;
+import com.example.ankush.rawanime.models.AnimeModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class searchAnime extends AppCompatActivity {
 
     String url="https://www4.gogoanimes.tv/search.html?keyword=";
     String searchText;
+    RecyclerView recyclerView;
+    RecyclerViewAdapter adapter;
+    List<AnimeModel> list;
+    ProgressBar progressBar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_anime);
+        setContentView(R.layout.anime_list);
+
         Intent intent=getIntent();
         searchText=intent.getStringExtra("text");
-        searchText=getProperSearchText(searchText);
         Log.d("searchText",searchText);
-
-
+        list= new ArrayList<>();
+        adapter= new RecyclerViewAdapter(list,this);
+        recyclerView=findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+        MyAsyncTask task= new MyAsyncTask();
+        task.execute(url+getProperSearchText(searchText));
 
     }
-
-
 
 
 
@@ -38,7 +59,7 @@ public class searchAnime extends AppCompatActivity {
     }
 
 
-    private class MyAsyncTask extends AsyncTask<Void,Void,Void> {
+    private class MyAsyncTask extends AsyncTask<String,Void,Void> {
 
         @Override
         protected void onProgressUpdate(Void... values) {
@@ -58,9 +79,9 @@ public class searchAnime extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(String... url) {
             FetchRecentlyUpdated fetchAnimes=new FetchRecentlyUpdated() ;
-            fetchAnimes.setList(mainPageUrl);
+            fetchAnimes.setList(url[0]);
             list.clear();
             list.addAll(fetchAnimes.getList());
             return null;
