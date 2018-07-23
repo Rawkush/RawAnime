@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 import com.example.ankush.rawanime.fetch.FetchRecentlyUpdated;
+import com.example.ankush.rawanime.fetch.FetchSearchedAnime;
 import com.example.ankush.rawanime.fragment.RecentUpdates;
 import com.example.ankush.rawanime.models.AnimeModel;
 
@@ -33,7 +34,6 @@ public class searchAnime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.anime_list);
-
         Intent intent=getIntent();
         searchText=intent.getStringExtra("text");
         Log.d("searchText",searchText);
@@ -80,10 +80,11 @@ public class searchAnime extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... url) {
-            FetchRecentlyUpdated fetchAnimes=new FetchRecentlyUpdated() ;
-            fetchAnimes.setList(url[0]);
+
+            FetchSearchedAnime fetchSearchedAnime= new FetchSearchedAnime();
+            fetchSearchedAnime.setList(url[0]);
             list.clear();
-            list.addAll(fetchAnimes.getList());
+            list.addAll(fetchSearchedAnime.getList());
             return null;
         }
 

@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class fetchSearchedAnime {
+public class FetchSearchedAnime {
 
     public List<AnimeModel> list;
-    public fetchSearchedAnime(){
+    public FetchSearchedAnime(){
         list= new ArrayList<>();
     }
 

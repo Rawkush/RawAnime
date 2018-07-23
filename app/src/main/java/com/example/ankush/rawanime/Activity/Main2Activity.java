@@ -45,7 +45,8 @@ public class Main2Activity extends TabView {
             public void onSearchConfirmed(CharSequence text) {
                 super.onSearchConfirmed(text);
                 Intent intent= new Intent(getApplicationContext(),searchAnime.class);
-                intent.putExtra("text",text);
+                String message=text.toString();
+                intent.putExtra("text",message);
                 startActivity(intent);
             }
 
