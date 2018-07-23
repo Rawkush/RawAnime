@@ -97,6 +97,7 @@ public class RecentUpdates extends Fragment{
 
                 @Override
                 public void run() {
+                    progressBar.setVisibility(View.GONE);
 
                     // Stuff that updates the UI
                     adapter.notifyDataSetChanged();

@@ -16,6 +16,7 @@ public class Main2Activity extends TabView {
 
     TabLayout tabLayout;
     ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

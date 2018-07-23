@@ -17,7 +17,7 @@
             style="@style/MaterialSearchBarLight"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:mt_hint="Zoro"
+            app:mt_hint="Enter Anime Name"
             app:mt_maxSuggestionsCount="10"
             app:mt_backIconTint="@color/colorWhite"
             app:mt_clearIconTint="@color/colorWhite"
