@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.AnimeSelected" />
-        <activity android:name=".Activity.watchOrDownload" />
+        <activity android:name=".Activity.streamingServer" />
         <activity android:name=".Activity.Main2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.searchAnime"></activity>
+        <activity android:name=".Activity.searchAnime" />
+        <activity android:name=".Activity.WatchDownload"></activity>
     </application>
 
 </manifest>

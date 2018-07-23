@@ -21,10 +21,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class watchOrDownload extends AppCompatActivity {
+public class streamingServer extends AppCompatActivity {
     String url;
     String videoUrl;
     ArrayList <EpisodeDataModel> servers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
