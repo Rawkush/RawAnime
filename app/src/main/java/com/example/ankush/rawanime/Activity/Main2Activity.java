@@ -19,8 +19,11 @@ public class Main2Activity extends TabView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        viewPager=findViewById(R.id.viewpager);
+        tabLayout=findViewById(R.id.tabs);
+        initViewpagerAndTablayout(viewPager,tabLayout);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Make to run your application only in portrait mode
-        initTabView();
         addFragment(new FragmentModel(new RecentUpdates(),"Recently Updated"));
         addFragment(new FragmentModel(new PopularOnGoing(),"Popular Ongoing"));
     }
