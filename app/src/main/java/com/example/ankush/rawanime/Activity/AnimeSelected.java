@@ -106,7 +106,7 @@ public class AnimeSelected extends AppCompatActivity {
                     episodeUrl=getProperUrl(episodeUrl);
                     for(int i=1;i<=lastEpisode;i++){
                         if(episodeUrl.contains("episode")){
-                            episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+i));
+                            episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-"+i));
 
                         }else
                         episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-episode-"+i));
