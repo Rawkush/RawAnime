@@ -22,7 +22,7 @@ import java.util.List;
 
 public class searchAnime extends AppCompatActivity {
 
-    String url="https://www4.gogoanimes.tv/search.html?keyword=";
+    String url="https://www4.gogoanime.se/search.html?keyword=";
     String searchText;
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;

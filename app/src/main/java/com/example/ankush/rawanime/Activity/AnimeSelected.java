@@ -29,9 +29,11 @@ public class AnimeSelected extends AppCompatActivity {
     List<EpisodeDataModel> episodesData;
     int lastEpisode;
     RecyclerView recyclerView;
+    ArrayList<EpisodeDataModel> data;
     SelectedAnimeAdapter adapter;
     String episodeUrl;
-    final String baseUrl="https://www4.gogoanimes.tv";
+    String nextUrl;
+    final String baseUrl="https://www4.gogoanime.se";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class AnimeSelected extends AppCompatActivity {
         adapter= new SelectedAnimeAdapter(episodesData,this);
         recyclerView=findViewById(R.id._selected_recycler_view);
         recyclerView.setHasFixedSize(true);
+        data=new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         Intent intent = getIntent();
@@ -72,9 +75,8 @@ public class AnimeSelected extends AppCompatActivity {
 
             try {
                 Document doc = Jsoup.connect(url[0]).get();
-
                 Elements container= doc.select("div.anime_video_body");
-
+                Element download=container.select("div.download-anime").first();
                 Elements container2=container.select("ul#episode_page");
                 Elements range=container2.select("li");
                 String lastEpisodeNumber="0";
@@ -87,6 +89,10 @@ public class AnimeSelected extends AppCompatActivity {
                 }
 
               lastEpisode= Integer.parseInt(lastEpisodeNumber);
+                nextUrl=download.select("a").attr("href");
+                nextUrl=getGeneralDownloadUrl(nextUrl);
+                Log.d("ashdb",download.select("a").attr("href"));
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -103,6 +109,13 @@ public class AnimeSelected extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Stuff that updates the UI
+
+                    for(int i=1;i<=lastEpisode;i++) {
+                        episodesData.add(new EpisodeDataModel("episode " + i, nextUrl + i));
+
+                    }
+
+                 /*
                     episodeUrl=getProperUrl(episodeUrl);
                     for(int i=1;i<=lastEpisode;i++){
                         if(episodeUrl.contains("episode")){
@@ -112,6 +125,12 @@ public class AnimeSelected extends AppCompatActivity {
                         episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-episode-"+i));
 
                     }
+*/
+
+
+
+
+
                     Collections.reverse(episodesData);
                     adapter.notifyDataSetChanged();
 
@@ -120,6 +139,27 @@ public class AnimeSelected extends AppCompatActivity {
 
         }
 
+    }
+
+
+    public String getGeneralDownloadUrl(String murl){
+        String[] temp=murl.split("+");
+        String URL=null;
+        for(int i=0;i<temp.length;i++){
+            if(i==0){
+                URL=temp[i];
+            }else
+            if(i!=temp.length-1){
+                URL=URL+"-"+temp[i];
+            }
+
+        }
+
+        if(!parseStrToInt(temp[temp.length-1])){
+            URL=URL+"-"+temp[temp.length-1];
+        }
+
+        return URL;
     }
 
 public String getGeneralUrl(String murl){
