@@ -17,20 +17,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class watchOrDownload extends AppCompatActivity {
     String url;
     String videoUrl;
-    ArrayList<String> servers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_or_download);
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
-        servers=new ArrayList<>();
         Toast.makeText(this,url,Toast.LENGTH_SHORT).show();
         MyAsyncTask task=new MyAsyncTask();
         task.execute(url);
@@ -47,14 +44,25 @@ public class watchOrDownload extends AppCompatActivity {
             try {
                 Document doc = Jsoup.connect(url[0]).get();
 
-                Elements container= doc.select("div.anime_muti_link");
-                Elements container1= container.select("ul");
-                Elements list= container.select("li");
-                for(Element server:list){
+                Elements container= doc.select("div.anime_video_body");
+                Elements container1= container.select("div.anime_video_body_watch");
+                Elements link = container1.select("iframe"); // a with href
+                String  videoLink=link.attr("src");
 
-                    Log.d("see",server.outerHtml());
-                }
+                videoUrl="https:"+videoLink;
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+
+                Document doc = Jsoup.connect(videoUrl).get();
+                Elements container =doc.select("#myVideo");
+                String  videoLink=container.text();
+
+                Log.d("h",videoLink);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -74,7 +82,10 @@ public class watchOrDownload extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Stuff that updates the UI
-
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(videoUrl));
+                    startActivity(i);
+                    finish();
                 }
             });
 
