@@ -10,29 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 import com.example.ankush.rawanime.fetch.FetchRecentlyUpdated;
 import com.example.ankush.rawanime.models.AnimeModel;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecentUpdates extends Fragment{
 
 
-    private final String  mainPageUrl="https://www4.gogoanime.se/";
+    private final String  mainPageUrl="https://www4.gogoanime.se";
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
     List<AnimeModel> list;
-    final String pagedetails="page-recent-release-ongoing.html?page=";
     ProgressBar progressBar;
 
     @Nullable
