@@ -21,7 +21,7 @@ import java.util.List;
 public class RecentUpdates extends Fragment{
 
 
-    private final String  mainPageUrl="https://www4.gogoanime.se";
+    private final String mainPageUrl="https://www4.gogoanime.se";
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
     List<AnimeModel> list;
