@@ -32,6 +32,7 @@ public class WatchDownload extends AppCompatActivity {
         Intent intent = getIntent();
         servers=new ArrayList<>();
         url = intent.getStringExtra("url");
+        Log.d("urlWatch",url);
         Toast.makeText(this,url,Toast.LENGTH_SHORT).show();
         MyAsyncTask task=new MyAsyncTask();
         task.execute(url);
@@ -47,8 +48,12 @@ public class WatchDownload extends AppCompatActivity {
             try {
                 Document doc = Jsoup.connect(url[0]).get();
 
-                Elements container= doc.select("div.download");
-                Elements container1= container.select("a");
+                Elements container= doc.select("div.content_c_bg");
+                Elements container1= container.select("div.mirror_link");
+                Elements container2= container1.select("div.dowload");
+                Elements container3= container2.select("a");
+                Log.d("check", container3.outerHtml());
+
                 for(Element li:container1) {
                     videoUrl=li.attr("href");
                     servers.add(new EpisodeDataModel("",videoUrl));
@@ -73,10 +78,10 @@ public class WatchDownload extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Stuff that updates the UI
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                      i.setData(Uri.parse(servers.get(0).getEpisodeUrl()));
-                     startActivity(i);
-                    finish();
+                    //Intent i = new Intent(Intent.ACTION_VIEW);
+                   //   i.setData(Uri.parse(servers.get(0).getEpisodeUrl()));
+                     //startActivity(i);
+                    //finish();
                 }
             });
 
