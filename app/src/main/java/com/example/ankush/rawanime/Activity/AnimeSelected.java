@@ -112,7 +112,7 @@ public class AnimeSelected extends AppCompatActivity {
                     // Stuff that updates the UI
 
                     for(int i=1;i<=lastEpisode;i++) {
-                        episodesData.add(new EpisodeDataModel("episode " + i, nextUrl + i));
+                        episodesData.add(new EpisodeDataModel("episode " + i, nextUrl + "+" + i));
                     }
 
                  /*
@@ -126,6 +126,7 @@ public class AnimeSelected extends AppCompatActivity {
 
                     }
 */
+                    Log.d("ashdb",episodesData.get(0).getEpisodeUrl());
 
 
 
@@ -150,7 +151,7 @@ public class AnimeSelected extends AppCompatActivity {
                 URL=temp[i];
             }else
             if(i!=temp.length-1){
-                URL=URL+"-"+temp[i];
+                URL=URL+"+"+temp[i];
             }
 
         }
