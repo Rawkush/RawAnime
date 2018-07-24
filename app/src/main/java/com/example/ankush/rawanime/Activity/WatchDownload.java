@@ -2,6 +2,7 @@ package com.example.ankush.rawanime.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,13 +47,11 @@ public class WatchDownload extends AppCompatActivity {
             try {
                 Document doc = Jsoup.connect(url[0]).get();
 
-                Elements container= doc.select("div.anime_muti_link");
-                Elements container1= container.select("ul");
-                Elements link = container1.select("li"); // a with href
-                for(Element li:link) {
-                    String embeded= li.select("a").attr("data-video");
-                    String serverName= li.select("a").text();
-                    servers.add(new EpisodeDataModel(serverName,embeded));
+                Elements container= doc.select("div.download");
+                Elements container1= container.select("a");
+                for(Element li:container1) {
+                    videoUrl=li.attr("href");
+                    servers.add(new EpisodeDataModel("",videoUrl));
                     Log.d("sjdnckkd", li.select("a").text());
                     Log.d("sjdnckkd", "aj");
 
@@ -75,9 +74,9 @@ public class WatchDownload extends AppCompatActivity {
                 public void run() {
                     // Stuff that updates the UI
                     Intent i = new Intent(Intent.ACTION_VIEW);
-                    //   i.setData(Uri.parse(videoUrl));
-                    // startActivity(i);
-                    //finish();
+                      i.setData(Uri.parse(servers.get(0).getEpisodeUrl()));
+                     startActivity(i);
+                    finish();
                 }
             });
 

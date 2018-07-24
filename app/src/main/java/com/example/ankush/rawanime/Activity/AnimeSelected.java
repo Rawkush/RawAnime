@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class AnimeSelected extends AppCompatActivity {
     List<EpisodeDataModel> episodesData;
@@ -112,7 +113,6 @@ public class AnimeSelected extends AppCompatActivity {
 
                     for(int i=1;i<=lastEpisode;i++) {
                         episodesData.add(new EpisodeDataModel("episode " + i, nextUrl + i));
-
                     }
 
                  /*
@@ -143,7 +143,7 @@ public class AnimeSelected extends AppCompatActivity {
 
 
     public String getGeneralDownloadUrl(String murl){
-        String[] temp=murl.split("+");
+        String[] temp=murl.split(Pattern.quote("+"));
         String URL=null;
         for(int i=0;i<temp.length;i++){
             if(i==0){
