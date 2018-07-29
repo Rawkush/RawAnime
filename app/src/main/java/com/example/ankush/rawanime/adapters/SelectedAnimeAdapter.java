@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ankush.rawanime.Activity.StreamVideo;
 import com.example.ankush.rawanime.Activity.WatchDownload;
 import com.example.ankush.rawanime.Activity.streamingServer;
 import com.example.ankush.rawanime.R;
@@ -60,7 +61,7 @@ public class SelectedAnimeAdapter  extends RecyclerView.Adapter<SelectedAnimeAda
         public void onClick(View v) {
             int p = getAdapterPosition();
             Toast.makeText(context,""+p,Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, streamingServer.class);
+            Intent intent = new Intent(context, StreamVideo.class);
             intent.putExtra("url", items.get(p).getEpisodeUrl());
             context.startActivity(intent);
         }

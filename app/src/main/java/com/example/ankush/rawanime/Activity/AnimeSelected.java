@@ -62,6 +62,7 @@ public class AnimeSelected extends AppCompatActivity {
             episodeUrl = baseUrl + getProperUrl(url);
             Log.d("new", episodeUrl);
             task.execute(episodeUrl);
+            episodeUrl=getGeneralUrl(episodeUrl);
         }
     }
 
@@ -105,12 +106,12 @@ public class AnimeSelected extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Stuff that updates the UI
-
+/*
                     for(int i=1;i<=lastEpisode;i++) {
                         episodesData.add(new EpisodeDataModel("episode " + i, nextUrl + "+" + i));
                     }
+*/
 
-                 /*
                     episodeUrl=getProperUrl(episodeUrl);
                     for(int i=1;i<=lastEpisode;i++){
                         if(episodeUrl.contains("episode")){
@@ -120,7 +121,7 @@ public class AnimeSelected extends AppCompatActivity {
                         episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-episode-"+i));
 
                     }
-*/
+
                     Log.d("ashdb",episodesData.get(0).getEpisodeUrl());
 
 
