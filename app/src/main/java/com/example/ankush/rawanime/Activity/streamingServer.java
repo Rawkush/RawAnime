@@ -81,9 +81,9 @@ public class streamingServer extends AppCompatActivity {
                 public void run() {
                     // Stuff that updates the UI
                     Intent i = new Intent(Intent.ACTION_VIEW);
-                 //   i.setData(Uri.parse(videoUrl));
-                   // startActivity(i);
-                    //finish();
+                   i.setData(Uri.parse(videoUrl));
+                    startActivity(i);
+                    finish();
                 }
             });
 

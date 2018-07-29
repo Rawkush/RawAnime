@@ -60,7 +60,7 @@ public class SelectedAnimeAdapter  extends RecyclerView.Adapter<SelectedAnimeAda
         public void onClick(View v) {
             int p = getAdapterPosition();
             Toast.makeText(context,""+p,Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, WatchDownload.class);
+            Intent intent = new Intent(context, streamingServer.class);
             intent.putExtra("url", items.get(p).getEpisodeUrl());
             context.startActivity(intent);
         }

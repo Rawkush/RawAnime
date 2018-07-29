@@ -1,6 +1,6 @@
 package com.example.ankush.rawanime.Activity;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,30 +9,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.models.AnimeModel;
-import com.example.ankush.rawanime.models.EpisodeDataModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class WatchDownload extends AppCompatActivity {
+public class StreamVideo extends AppCompatActivity {
+
     String url;
     String videoUrl;
-    ArrayList <EpisodeDataModel> servers;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_watch_or_download);
         Intent intent = getIntent();
-        servers=new ArrayList<>();
         url = intent.getStringExtra("url");
-        Log.d("urlWatch",url);
         Toast.makeText(this,url,Toast.LENGTH_SHORT).show();
         MyAsyncTask task=new MyAsyncTask();
         task.execute(url);
@@ -40,29 +36,39 @@ public class WatchDownload extends AppCompatActivity {
 
 
 
-    @SuppressLint("StaticFieldLeak")
     private class MyAsyncTask extends AsyncTask<String,List<AnimeModel>,Void> {
+
+
         @Override
         protected Void doInBackground(String... url) {
 
             try {
                 Document doc = Jsoup.connect(url[0]).get();
 
-                Elements container= doc.select("div.content_c_bg");
-                Elements container1= container.select("div.mirror_link");
-                Elements container2= container1.select("div.dowload");
-                Elements container3= container2.select("a");
-                Log.d("check", container3.outerHtml());
+                Elements container= doc.select("div.anime_video_body");
+                Elements container1= container.select("div.anime_video_body_watch");
+                Elements link = container1.select("iframe"); // a with href
+                String  videoLink=link.attr("src");
 
-                for(Element li:container1) {
-                    videoUrl=li.attr("href");
-                    servers.add(new EpisodeDataModel("",videoUrl));
-                    Log.d("sjdnckkd", li.select("a").text());
+                videoUrl="https:"+videoLink;
 
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+            try {
+
+                Document doc = Jsoup.connect(videoUrl).get();
+                Elements container =doc.select("#myVideo");
+                String  videoLink=container.text();
+
+                Log.d("h",videoLink);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             return null;
 
@@ -72,10 +78,22 @@ public class WatchDownload extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            runOnUiThread(new Runnable() {
 
+                @Override
+                public void run() {
+                    // Stuff that updates the UI
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(videoUrl));
+                    Log.d("videourl",videoUrl);
+                    startActivity(i);
+                    finish();
+                }
+            });
 
         }
 
     }
+
 
 }

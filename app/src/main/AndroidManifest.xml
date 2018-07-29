@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.searchAnime" />
-        <activity android:name=".Activity.WatchDownload"></activity>
+        <activity android:name=".Activity.WatchDownload" />
+        <activity android:name=".Activity.StreamVideo"></activity>
     </application>
 
 </manifest>
