@@ -36,14 +36,15 @@ public fetchLatestAnimes(){
                 Element data=dataCont.get(0);
                 String title=dataCont.get(1).text();   // name of the anime
                 String nextPageLink = data.attr("href");
-                Log.d("data",data.attr("href"));
+                Log.d("RecentLinkk",data.attr("href"));
                 Element img=data.select("div.thumbnail-popular").first();
                 String temp=img.after("url").toString();
                 String imgUrl=getURL(temp); // url of the thumbmail
                 Elements episode = element.select("p");
                 String latestEpisode=episode.get(1).text();  // episode number
                 Log.d("data3",""+episode.get(1).text());
-                list.add(new AnimeModel(latestEpisode, imgUrl, title, nextPageLink));
+
+                list.add(new AnimeModel(latestEpisode, imgUrl, title, nextPageLink+"-episode-1"));
 
 /*
                 Elements Episode = element.select("p.episode");

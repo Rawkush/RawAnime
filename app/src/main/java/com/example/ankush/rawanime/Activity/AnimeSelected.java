@@ -59,7 +59,7 @@ public class AnimeSelected extends AppCompatActivity {
             task.execute(url);
         }
         else {
-            episodeUrl = baseUrl + url;
+            episodeUrl = baseUrl + getProperUrl(url);
             Log.d("new", episodeUrl);
             task.execute(episodeUrl);
         }
