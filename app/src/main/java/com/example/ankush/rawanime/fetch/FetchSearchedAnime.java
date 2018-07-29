@@ -36,11 +36,10 @@ public class FetchSearchedAnime {
                 Elements img = element.select("div.img");
                 Element links = img.select("a[href]").first(); // a with href
                 String nextPageLink = links.attr("href");
-                nextPageLink = url + nextPageLink;
                 Element ImageLink = links.select("img").first();
                 String imgLink = ImageLink.attr("src");
-                Log.d("links", imgLink);
-                list.add(new AnimeModel(episode, imgLink, title, nextPageLink));
+                Log.d("searched", nextPageLink);
+                list.add(new AnimeModel(episode, imgLink, title, nextPageLink+"-episode-1"));
             }
 
 
