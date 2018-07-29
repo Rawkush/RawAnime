@@ -73,11 +73,11 @@ public class AnimeSelected extends AppCompatActivity {
             if(url[0]==null||url[0].length()<1){
                 return null;
             }
-
             try {
                 Document doc = Jsoup.connect(url[0]).get();
+
                 Elements container= doc.select("div.anime_video_body");
-                Element download=container.select("div.download-anime").first();
+
                 Elements container2=container.select("ul#episode_page");
                 Elements range=container2.select("li");
                 String lastEpisodeNumber="0";
@@ -89,16 +89,11 @@ public class AnimeSelected extends AppCompatActivity {
                     lastEpisodeNumber=temp[1];
                 }
 
-              lastEpisode= Integer.parseInt(lastEpisodeNumber);
-                nextUrl=download.select("a").attr("href");
-                nextUrl=getGeneralDownloadUrl(nextUrl);
-                Log.d("ashdb",download.select("a").attr("href"));
-
+                lastEpisode= Integer.parseInt(lastEpisodeNumber);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return null;
 
         }

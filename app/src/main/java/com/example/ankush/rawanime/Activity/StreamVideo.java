@@ -29,6 +29,7 @@ public class StreamVideo extends AppCompatActivity {
         setContentView(R.layout.activity_watch_or_download);
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
+        Log.d("gqsgamhgsma hdg",url);
         Toast.makeText(this,url,Toast.LENGTH_SHORT).show();
         MyAsyncTask task=new MyAsyncTask();
         task.execute(url);
