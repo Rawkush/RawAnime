@@ -54,7 +54,7 @@ public class searchAnime extends AppCompatActivity {
 
     private String getProperSearchText(String text){
 
-        return text.replace(" ","%20");
+        return text.replace("\\s","%20");
 
     }
 
