@@ -10,7 +10,7 @@ this app just scrapes website gogoanime to fetch the animes and few of their det
 </h1>
 
 # Download Link 
-https://github.com/Rawkush/RawAnime/releases/download/0.0.4/app-debug.apk
+<a href="https://github.com/Rawkush/RawAnime/releases/download/0.0.4/app-debug.apk"> Download the apk</a>
 # Currently underdevelopment 
 anyone is welcomed to fork this project and extend or add any feature if they wants
 
