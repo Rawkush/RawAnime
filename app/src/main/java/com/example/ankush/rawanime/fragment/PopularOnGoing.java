@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 import com.gecdevelopers.scrapper.AnimeModel;
-import com.gecdevelopers.scrapper.Scrapper;
+import com.gecdevelopers.scrapper.Scraper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,7 @@ public class PopularOnGoing extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Scrapper scrapper= new Scrapper();
+            Scraper scrapper= new Scraper();
             scrapper.scrapeForPopularOngoingAnimeList();
             list.addAll(scrapper.getPopularOngoindAnimeList());
             return null;

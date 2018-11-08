@@ -14,7 +14,7 @@ import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 
 import com.gecdevelopers.scrapper.AnimeModel;
-import com.gecdevelopers.scrapper.Scrapper;
+import com.gecdevelopers.scrapper.Scraper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class searchAnime extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... searchText) {
-            Scrapper scrapper= new Scrapper();
+            Scraper scrapper= new Scraper();
             scrapper.startSearching(searchText[0]);
             list.addAll(scrapper.getSearchedAnimeList());
             return null;

@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
 import com.gecdevelopers.scrapper.AnimeModel;
-import com.gecdevelopers.scrapper.Scrapper;
+import com.gecdevelopers.scrapper.Scraper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +57,7 @@ public class RecentUpdates extends Fragment{
         @Override
         protected Void doInBackground(Void... voids) {
 
-            //TODO Scrapper is changed to scraper after updating thwe library
-            Scrapper scraper= new Scrapper();
+            Scraper scraper= new Scraper();
             scraper.scrapeForRecentAnimeList();
             list.addAll(scraper.getRecentAnimeList());
 
