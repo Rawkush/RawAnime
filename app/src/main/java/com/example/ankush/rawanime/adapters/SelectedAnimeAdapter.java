@@ -14,16 +14,16 @@ import com.example.ankush.rawanime.Activity.StreamVideo;
 import com.example.ankush.rawanime.Activity.WatchDownload;
 import com.example.ankush.rawanime.Activity.streamingServer;
 import com.example.ankush.rawanime.R;
-import com.example.ankush.rawanime.models.EpisodeDataModel;
+import com.gecdevelopers.scrapper.EpisodeModel;
 
 import java.util.List;
 
 public class SelectedAnimeAdapter  extends RecyclerView.Adapter<SelectedAnimeAdapter.ViewHolder> {
 
-    List<EpisodeDataModel> items;
+    List<EpisodeModel> items;
     Context context;
 
-    public SelectedAnimeAdapter(List<EpisodeDataModel> items, Context context) {
+    public SelectedAnimeAdapter(List<EpisodeModel> items, Context context) {
         this.items = items;
         this.context = context;
     }

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,33 +14,25 @@ import android.widget.ProgressBar;
 
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.RecyclerViewAdapter;
-import com.example.ankush.rawanime.fetch.fetchLatestAnimes;
-import com.example.ankush.rawanime.models.AnimeModel;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import java.io.IOException;
+import com.gecdevelopers.scrapper.AnimeModel;
+import com.gecdevelopers.scrapper.Scrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class PopularOnGoing extends Fragment {
 
-    private final String  mainPageUrl="https://www4.gogoanime.se/";
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
     List<AnimeModel> list;
-    final String pagedetails="page-recent-release-ongoing.html?page=";
     ProgressBar progressBar;
-    View rootView;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            rootView=inflater.inflate(R.layout.anime_list,container,false);
-            return rootView;
+        return inflater.inflate(R.layout.anime_list,container,false);
     }
 
     @Override
@@ -55,6 +46,8 @@ public class PopularOnGoing extends Fragment {
         recyclerView.setAdapter(adapter);
         progressBar=view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+
+
         MyAsyncTask task= new MyAsyncTask();
         task.execute();
     }
@@ -80,41 +73,20 @@ public class PopularOnGoing extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            fetchLatestAnimes fetchAnimes=new fetchLatestAnimes();
-            int pageNumber=0;
-            try {
-                Document doc = Jsoup.connect(mainPageUrl).get();
-                Elements container = doc.select("div.pagination.recent");
-                Elements pagesContainer= container.select("li");
-                for(Element pages:pagesContainer){
-                    pageNumber++;
-                    fetchAnimes.setList(mainPageUrl+pagedetails+pageNumber);
-                    list.clear();
-                    //fetchAnimes.getList();
-                    list.addAll(fetchAnimes.getList());
-                    onProgressUpdate();
-
-                }
-
-                Log.d("akd",""+pagesContainer.html());
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
+            Scrapper scrapper= new Scrapper();
+            scrapper.scrapeForPopularOngoingAnimeList();
+            list.addAll(scrapper.getPopularOngoindAnimeList());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
            getActivity().runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
-
                     // Stuff that updates the UI
                     adapter.notifyDataSetChanged();
 

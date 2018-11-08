@@ -8,9 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.ankush.rawanime.models.AnimeModel;
-import com.example.ankush.rawanime.models.EpisodeDataModel;
+import com.gecdevelopers.scrapper.EpisodeModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +22,7 @@ import java.util.List;
 public class WatchDownload extends AppCompatActivity {
     String url;
     String videoUrl;
-    ArrayList <EpisodeDataModel> servers;
+    ArrayList <EpisodeModel> servers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class WatchDownload extends AppCompatActivity {
 
 
     @SuppressLint("StaticFieldLeak")
-    private class MyAsyncTask extends AsyncTask<String,List<AnimeModel>,Void> {
+    private class MyAsyncTask extends AsyncTask<String,List<EpisodeModel>,Void> {
         @Override
         protected Void doInBackground(String... url) {
 
@@ -56,7 +54,7 @@ public class WatchDownload extends AppCompatActivity {
 
                 for(Element li:container1) {
                     videoUrl=li.attr("href");
-                    servers.add(new EpisodeDataModel("",videoUrl));
+                    servers.add(new EpisodeModel("",videoUrl));
                     Log.d("sjdnckkd", li.select("a").text());
 
                 }
@@ -72,7 +70,6 @@ public class WatchDownload extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
 
         }
 

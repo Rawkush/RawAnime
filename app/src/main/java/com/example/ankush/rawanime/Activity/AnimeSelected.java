@@ -11,8 +11,8 @@ import android.util.Log;
 
 import com.example.ankush.rawanime.R;
 import com.example.ankush.rawanime.adapters.SelectedAnimeAdapter;
-import com.example.ankush.rawanime.models.AnimeModel;
-import com.example.ankush.rawanime.models.EpisodeDataModel;
+import com.gecdevelopers.scrapper.AnimeModel;
+import com.gecdevelopers.scrapper.EpisodeModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class AnimeSelected extends AppCompatActivity {
-    List<EpisodeDataModel> episodesData;
+    List<EpisodeModel> episodesData;
     int lastEpisode;
     RecyclerView recyclerView;
-    ArrayList<EpisodeDataModel> data;
+    ArrayList<EpisodeModel> data;
     SelectedAnimeAdapter adapter;
     String episodeUrl;
     String nextUrl;
@@ -115,10 +115,10 @@ public class AnimeSelected extends AppCompatActivity {
                     episodeUrl=getProperUrl(episodeUrl);
                     for(int i=1;i<=lastEpisode;i++){
                         if(episodeUrl.contains("episode")){
-                            episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-"+i));
+                            episodesData.add(new EpisodeModel("episode "+i,episodeUrl+"-"+i));
 
                         }else
-                        episodesData.add(new EpisodeDataModel("episode "+i,episodeUrl+"-episode-"+i));
+                        episodesData.add(new EpisodeModel("episode "+i,episodeUrl+"-episode-"+i));
 
                     }
 

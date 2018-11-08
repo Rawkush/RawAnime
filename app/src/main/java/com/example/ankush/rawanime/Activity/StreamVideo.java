@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ankush.rawanime.R;
-import com.example.ankush.rawanime.models.AnimeModel;
+import com.gecdevelopers.scrapper.AnimeModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

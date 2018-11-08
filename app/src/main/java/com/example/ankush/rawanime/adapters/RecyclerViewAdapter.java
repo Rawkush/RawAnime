@@ -3,6 +3,7 @@ package com.example.ankush.rawanime.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ankush.rawanime.Activity.AnimeSelected;
 import com.example.ankush.rawanime.R;
-import com.example.ankush.rawanime.models.AnimeModel;
+import com.gecdevelopers.scrapper.AnimeModel;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.items = items;
         this.context = context;
     }
-
 
     @NonNull
     @Override

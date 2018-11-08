@@ -9,8 +9,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ankush.rawanime.R;
-import com.example.ankush.rawanime.models.AnimeModel;
-import com.example.ankush.rawanime.models.EpisodeDataModel;
+import com.gecdevelopers.scrapper.AnimeModel;
+import com.gecdevelopers.scrapper.EpisodeModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +24,7 @@ import java.util.List;
 public class streamingServer extends AppCompatActivity {
     String url;
     String videoUrl;
-    ArrayList <EpisodeDataModel> servers;
+    ArrayList <EpisodeModel> servers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class streamingServer extends AppCompatActivity {
                 for(Element li:link) {
                     String embeded= li.select("a").attr("data-video");
                     String serverName= li.select("a").text();
-                    servers.add(new EpisodeDataModel(serverName,embeded));
+                    servers.add(new EpisodeModel(serverName,embeded));
                     Log.d("sjdnckkd", li.select("a").text());
                     Log.d("sjdnckkd", "aj");
 
