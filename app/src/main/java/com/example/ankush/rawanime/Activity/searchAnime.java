@@ -2,6 +2,7 @@ package com.example.ankush.rawanime.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,9 +53,19 @@ public class searchAnime extends AppCompatActivity {
 
 
 
+    @NonNull
     private String getProperSearchText(String text){
 
-        return text.replace("\\s","%20");
+        String[] s=text.split("\\s");
+        String tmp="";
+        for(String temp:s){
+            if(tmp.length()>0)
+            tmp=tmp + "+" +temp;
+            else
+                tmp=temp;
+        }
+        return tmp;
+        //return text.replace("\\s","\\s+");
 
     }
 
