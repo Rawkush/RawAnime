@@ -2,17 +2,31 @@
 An anime streaming app to watch all the Animes without any interruption or ads for free.
 Just download the app and search for favorite anime and enjoy🎉🎉 your time!! 😉😉
 
+
+
+### A small look of app and its working:
+<h1 align="center">
+<img src="/github/ezgif.com-video-to-gif.gif" width="280" height="498" alt="Video 1"/>
+
+</h1>
 ## Working 
 The app just scrapes the website 'gogoanime' to fetch the animes and few of their details and streams the same on your mobile phone. 😉
 
-## Libraries Used
-- JSOUP
-- GogoScraper
-- TabView
+# Download Link 
+<a href="https://github.com/Rawkush/RawAnime/releases/download/1.0.1/RawAnime.apk"> Download the latest apk</a>
 
-### A small look of app and its working:
-![
-](https://lh3.googleusercontent.com/RcGmuCf_6fcwgIGPHPq1PKZKG-d68n6zXLEmGnR0TV6ta5kFtWDjNUF8oRtWU1yVSh5a9Nqrll58=s300)
-## Did this amaze you?...Wanna try yourself?
-Click the link:-  
 
+# Library used
+<ol>
+<li>jsoup </li>   
+<li><a href="https://github.com/Rawkush/TabViewLib">Tab View</a>  </li>
+<li><a href="https://github.com/Rawkush/GogoScraper">GogoScraper</a></li>
+</ol>
+
+# Currently underdevelopment 
+anyone is welcomed to fork this project and extend or add any feature if they wants
+
+# Note
+If broken open the issue i will try to fix it ASAP
+
+### Arigatou Gozaimasu
