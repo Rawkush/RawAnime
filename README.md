@@ -12,8 +12,7 @@ The app just scrapes the website 'gogoanime' to fetch the animes and few of thei
 
 ### A small look of app and its working:
 ![
-](https://lh3.googleusercontent.com/RcGmuCf_6fcwgIGPHPq1PKZKG-d68n6zXLEmGnR0TV6ta5kFtWDjNUF8oRtWU1yVSh5a9Nqrll58=s500)
-
+](https://lh3.googleusercontent.com/RcGmuCf_6fcwgIGPHPq1PKZKG-d68n6zXLEmGnR0TV6ta5kFtWDjNUF8oRtWU1yVSh5a9Nqrll58=s300)
 ## Did this amaze you?...Wanna try yourself?
-Click the link:-  Ankush enter link here, Please!
+Click the link:-  
 
