@@ -1,28 +1,19 @@
-# RawAnime
-Anime Streaming app to watch all the animes without any ads for free
-#working
-this app just scrapes website gogoanime to fetch the animes and few of their details
+# *RawAnime*
+An anime streaming app to watch all the Animes without any interruption or ads for free.
+Just download the app and search for favorite anime and enjoy🎉🎉 your time!! 😉😉
 
-# Screenshot
-<h1 align="center">
-<img src="/github/ezgif.com-video-to-gif.gif" width="280" height="498" alt="Video 1"/>
+## Working 
+The app just scrapes the website 'gogoanime' to fetch the animes and few of their details and streams the same on your mobile phone. 😉
 
-</h1>
+## Libraries Used
+- JSOUP
+- GogoScraper
+- TabView
 
-# Download Link 
-<a href="https://github.com/Rawkush/RawAnime/releases/download/1.0.1/RawAnime.apk"> Download the latest apk</a>
-# Currently underdevelopment 
-anyone is welcomed to fork this project and extend or add any feature if they wants
+### A small look of app and its working:
+![
+](https://lh3.googleusercontent.com/RcGmuCf_6fcwgIGPHPq1PKZKG-d68n6zXLEmGnR0TV6ta5kFtWDjNUF8oRtWU1yVSh5a9Nqrll58=s500)
 
-# Library used
+## Did this amaze you?...Wanna try yourself?
+Click the link:-  Ankush enter link here, Please!
 
-<ol>
-  
-<li>jsoup </li>   
-<li><a href="https://github.com/Rawkush/TabViewLib">Tab View</a>  </li>
-<li><a href="https://github.com/Rawkush/GogoScraper">GogoScraper</a></li>
-</ol>
-# Note
-If broken open the issue i will try to fix it ASAP
-
-Arigatou Gozaimasu
