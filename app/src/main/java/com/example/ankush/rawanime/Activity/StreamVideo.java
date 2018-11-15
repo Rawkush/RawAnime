@@ -1,6 +1,7 @@
 package com.example.ankush.rawanime.Activity;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -157,6 +159,30 @@ public class StreamVideo extends AppCompatActivity {
         mWebView.loadUrl(videoUrl);
 
 
+        mWebView.setWebViewClient(new WebViewClient(){
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                //view.loadUrl(url);
+ //               https://cobalten.com/?auction_id=dee88bd0-1964-4a4c-a59a-f83857dc443d&ip=736d6dd364260474af661aa74d6e326b&pbk3=62bde385cb16cb695f6005ac64d1f0926624108803769143284&r=%2Foc%2Fhan&uuid=22c80168-fba3-4fb7-af7b-df4479f2e612&co=1&rf=1&zoneid=756262&xref=dmlkc3RyZWFtaW5nLmlv&fs=0&cf=0&sw=360&sh=640&sah=640&wx=0&wy=0&ww=360&wh=616&cw=360&wiw=360&wih=616&wfc=2&pl=https%3A%2F%2Fvidstreaming.io%2Fstreaming.php%3Fid%3DMTExMTUx%26title%3DSeishun%2BButa%2BYarou%2Bwa%2BBunny%2BGirl%2BSenpai%2Bno%2BYume%2Bwo%2BMinai%2BEpisode%2B7&drf=&np=0&pt=0&nb=1&ng=1&ix=0&nw=0
+                if (url != null && url.startsWith("https://cobalten.com/")) {
+                    view.goBack();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+               // view.loadUrl(request.getUrl().toString());
+                return false;
+            }
+        });
+
+
+
 
         mWebView.setWebChromeClient(new WebChromeClient() {
 
@@ -222,8 +248,6 @@ public class StreamVideo extends AppCompatActivity {
             }
 
         });
-
-
 
     }
 
