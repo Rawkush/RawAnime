@@ -296,26 +296,20 @@ public class StreamVideo extends AppCompatActivity {
         startActivity(Intent.createChooser(intent, "Complete action using"));*/
 
 
-        openApp(this, "com.mxtech.videoplayer.pro",url); // Pro version of MX player
-        openApp(this, "com.mxtech.videoplayer.ad",url); // free version of MX player
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        Uri videoUri = Uri.parse(url);
+
+        intent.setDataAndType( videoUri, "application/x-mpegURL" );
+
+        intent.setPackage( "com.mxtech.videoplayer.pro" );
+
+        startActivity( intent );
+
+
 
     }
 
-    public static boolean openApp(Context context, String packageName,String url) {
-        PackageManager manager = context.getPackageManager();
-        try {
-            Intent i = manager.getLaunchIntentForPackage(packageName);
-            if (i == null) {
-                throw new PackageManager.NameNotFoundException();
-            }
-            i.setDataAndType(Uri.parse(url), "video/*");
-            i.addCategory(Intent.CATEGORY_LAUNCHER);
-            context.startActivity(i);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
 
 
 
