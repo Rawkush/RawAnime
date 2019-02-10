@@ -3,8 +3,10 @@ package com.example.ankush.rawanime.Activity;
 
 import android.annotation.TargetApi;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -169,7 +171,7 @@ public class StreamVideo extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //view.loadUrl(url);
  //               https://cobalten.com/?auction_id=dee88bd0-1964-4a4c-a59a-f83857dc443d&ip=736d6dd364260474af661aa74d6e326b&pbk3=62bde385cb16cb695f6005ac64d1f0926624108803769143284&r=%2Foc%2Fhan&uuid=22c80168-fba3-4fb7-af7b-df4479f2e612&co=1&rf=1&zoneid=756262&xref=dmlkc3RyZWFtaW5nLmlv&fs=0&cf=0&sw=360&sh=640&sah=640&wx=0&wy=0&ww=360&wh=616&cw=360&wiw=360&wih=616&wfc=2&pl=https%3A%2F%2Fvidstreaming.io%2Fstreaming.php%3Fid%3DMTExMTUx%26title%3DSeishun%2BButa%2BYarou%2Bwa%2BBunny%2BGirl%2BSenpai%2Bno%2BYume%2Bwo%2BMinai%2BEpisode%2B7&drf=&np=0&pt=0&nb=1&ng=1&ix=0&nw=0
-                if (url != null && !url.startsWith(videoUrl)) {
+                if (url != null && !(url.startsWith(videoUrl))) {
                     view.goBack();
                     return true;
                 } else {
@@ -194,22 +196,18 @@ public class StreamVideo extends AppCompatActivity {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
                 String url =request.getUrl().toString();
-                if(request.isForMainFrame()){
-                   if (!videoLoaded){
-                       videoLoaded=true;
-                   }else
-                       return null;
-                }
+
                 if(url.endsWith(".mp4")||url.endsWith("mkv")||url.endsWith("webm")){
-
-                    startDownload(url);
-
+                    Log.e("URL",request.getUrl().toString());
+                    if(!url.startsWith("https://mc.yandex.ru")) {
+                        startDownload(url);
+                        view.goBack();
+                    }
                     return null;
 
                 }
 
 
-                Log.e("URL",request.getUrl().toString());
                 return super.shouldInterceptRequest(view, request);
 
 
@@ -289,23 +287,37 @@ public class StreamVideo extends AppCompatActivity {
 
 
 
-    private void startDownload(String url){
-        DownloadManager.Request r = new DownloadManager.Request(Uri.parse(url));
+    private void startDownload(String url){/*
 
-// This put the download in the same Download dir the browser uses
-        r.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "fileName");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
 
-// When downloading music and videos they will be listed in the player
-// (Seems to be available since Honeycomb only)
-        r.allowScanningByMediaScanner();
+        intent.setDataAndType(Uri.parse(url), "video/*");
 
-// Notify user when download is completed
-// (Seems to be available since Honeycomb only)
-        r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        startActivity(Intent.createChooser(intent, "Complete action using"));*/
 
-// Start download
-        DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        dm.enqueue(r);
+
+        openApp(this, "com.mxtech.videoplayer.pro",url); // Pro version of MX player
+        openApp(this, "com.mxtech.videoplayer.ad",url); // free version of MX player
+
     }
+
+    public static boolean openApp(Context context, String packageName,String url) {
+        PackageManager manager = context.getPackageManager();
+        try {
+            Intent i = manager.getLaunchIntentForPackage(packageName);
+            if (i == null) {
+                throw new PackageManager.NameNotFoundException();
+            }
+            i.setDataAndType(Uri.parse(url), "video/*");
+            i.addCategory(Intent.CATEGORY_LAUNCHER);
+            context.startActivity(i);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+
+
 
 }

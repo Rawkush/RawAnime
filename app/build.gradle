@@ -33,5 +33,5 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation files('C:/Users/Ankush/Documents/GitHub/RawAnime/lib/gogoScraper.jar')
+    implementation files('/home/aarav/AndroidStudioProjects/RawAnime/lib/gogoScraper.jar')
 }
