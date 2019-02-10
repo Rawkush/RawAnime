@@ -60,15 +60,6 @@ public class PopularOnGoing extends Fragment {
             super.onProgressUpdate(values);
             //since async works on different thread it cannot update the ui so we need to run the updating task on UI thread
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setVisibility(View.GONE);
-                    // Stuff that updates the UI
-                    adapter.notifyDataSetChanged();
-
-                }
-            });
         }
 
         @Override
@@ -83,18 +74,12 @@ public class PopularOnGoing extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-           getActivity().runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    // Stuff that updates the UI
-                    adapter.notifyDataSetChanged();
-
-                }
-            });
+            adapter.notifyDataSetChanged();
 
         }
     }
+
+
 
 
 }
