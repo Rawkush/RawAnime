@@ -1,1 +1,1 @@
-include ':app', ':jsoup-1.11.3'
+include ':app'

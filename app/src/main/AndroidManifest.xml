@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ankush.rawanime">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    package="com.rawanime">
 
     <application
         android:allowBackup="true"
@@ -12,18 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.AnimeSelected" />
-        <activity android:name=".Activity.streamingServer" />
-        <activity android:name=".Activity.Main2Activity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.searchAnime" />
-        <activity android:name=".Activity.WatchDownload" />
-        <activity android:name=".Activity.StreamVideo"></activity>
     </application>
 
 </manifest>

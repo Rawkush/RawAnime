@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00a1ff</color>
-    <color name="colorPrimaryDark">#424242</color>
-    <color name="categoryText">#a202a3f5</color>
-    <color name="colorTabLayout">#2a232f34</color>
-    <color name="colorTitle">#000000</color>
-    <color name="colorNavDefault">#2b2323</color>
-    <color name="colorNavActive">#fafafa</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorImageBackground">#db040608</color>
-    <color name="colorBackground">#f5182b38</color>
-    <color name="progressBarColor">#e6ffffff</color>
-    <color name="toolBar">#232F34</color>
-
-
-    //Material SearchBar Dark Theme Colors
-    <color name="searchBarIconColorDark">#00a1ff</color>
-    //Base
-    <color name="searchBarPrimaryColorDark">#303030</color>
-    <color name="searchBarCursorColorDark">@color/searchBarIconColorDark</color>
-    <color name="searchBarDividerColorDark">#1FFFFFFF</color>
-
-
-    //Text
-    <color name="searchBarTextColorDark">#DEFFFFFF</color>
-    <color name="searchBarHintColorDark">#42FFFFFF</color>
-    <color name="searchBarPlaceholderColorDark">#8AFFFFFF</color>
-    <color name="searchBarTextHighlightColorDark">#BF00a1ff</color>
-    <color name="leftTextSelectorColorDark">@color/searchBarIconColorDark</color>
-    <color name="middleTextSelectorColorDark">@color/searchBarIconColorDark</color>
-    <color name="rightTextSelectorColorDark">@color/searchBarIconColorDark</color>
-
-
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
 </resources>
