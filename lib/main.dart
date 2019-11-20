@@ -1,46 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-/* https request */
-Future<List<Post>> fetchPost() async {
-  List<Post> list;
-  var url = 'https://rawanime.herokuapp.com/';
-  var data = {'intent': 'new'};
-  final response = await http.post(url,
-      headers: {"Content-Type": "application/json"}, body: json.encode(data));
-
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON.
-    var data = json.decode(response.body);
-    var rest = data["data"] as List;
-    list = rest.map<Post>((json) => Post.fromJson(json)).toList();
-    return list;
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load post' + response.statusCode.toString());
-  }
-}
-
-/*mapping json to class object*/
-class Post {
-  final String episode;
-  final String img;
-  final String url;
-  final String title;
-
-  Post({this.episode, this.img, this.url, this.title});
-
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      episode: json['episode'],
-      img: json['img'],
-      title: json['title'],
-      url: json['url'],
-    );
-  }
-}
+import 'Http_Requests.dart';
+import 'Http_Response.dart';
 
 void main() => runApp(MyApp());
 
@@ -51,12 +11,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<List<Post>> post;
+  Future<List<Updated_Anime>> recent_anime_list;
 
   @override
   void initState() {
     super.initState();
-    post = fetchPost();
+    recent_anime_list = fetch_Updated_Animes();
   }
 
   @override
@@ -71,22 +31,10 @@ class _MyAppState extends State<MyApp> {
           title: Text('Fetch Data Example'),
         ),
         body: Center(
-          child: FutureBuilder<List<Post>>(
-            future: post,
+          child: FutureBuilder<List<Updated_Anime>>(
+            future: recent_anime_list,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return animeCard(snapshot.data[index]);
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-
-              // By default, show a loading spinner.
-              return CircularProgressIndicator();
+              return displayView(snapshot);
             },
           ),
         ),
@@ -95,22 +43,52 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+Widget displayView(var snapshot) {
+  if (snapshot.hasData) {
+    return ListView.builder(
+      itemCount: snapshot.data.length,
+      itemBuilder: (BuildContext context, int index) {
+        return animeCard(snapshot.data[index]);
+      },
+    );
+  } else if (snapshot.hasError) {
+    return Text("${snapshot.error}");
+  }
+  // By default, show a loading spinner.
+  return CircularProgressIndicator();
+}
+
 //UI Components below
-Card animeCard(Post data) {
+Card animeCard(Update_Anime data) {
   final animeCard = Card(
     elevation: 8.0,
-    margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-    child: Container(
-      decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-      child: Column(
-        children: <Widget>[
-          Image.network(
+    child: Row(
+      children: <Widget>[
+        Container(
+          height: 200,
+          width: 200,
+          color: Colors.red,
+          child: Image.network(
             data.img.toString(),
           ),
-          Text(data.title.toString()),
-          Text(data.episode.toString()),
-        ],
-      ),
+        ),
+        Container(
+          height: 200,
+          color: Colors.red,
+          child: Column(
+            children: <Widget>[
+             Flexible( child: Text(data.title.toString())),
+             Text(data.episode.toString()),
+            ],
+          ),
+        ),
+        //   Image.network(
+        //     data.img.toString(),
+        //   ),
+        //   Text(data.title.toString()),
+        //   Text(data.episode.toString()),
+        //
+      ],
     ),
   );
   return animeCard;
