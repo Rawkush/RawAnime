@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
                               _homeProvider.homeList[index].title.toString(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .subhead
+                                  .subtitle
                                   .copyWith(color: Colors.white),
                             ),
                           ),
