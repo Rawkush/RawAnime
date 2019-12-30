@@ -4,7 +4,6 @@ import 'Http_Response.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-import 'Http_Response.dart';
 
 
 Future<List<Updated_Anime>> fetch_Updated_Animes() async {
