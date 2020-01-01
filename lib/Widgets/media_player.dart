@@ -41,16 +41,26 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _controller.setVolume(1);
     _controller.setLooping(true);
     //_controller.addListener(_changeValue);
-    _controller.addListener(()=>setState((){_value=_controller.value.position.inSeconds.toDouble();}));
+    _controller.addListener(() => setState(() {
+          _value = _controller.value.position.inSeconds.toDouble();
+        }));
 
     super.initState();
   }
-    void _changeValue(){
-    setState((){
-      
-     _value>_controller.value.duration.inSeconds+_controller.value.duration.inHours*60*60+_controller.value.duration.inMinutes*60? _value=_controller.value.position.inSeconds+_controller.value.position.inMinutes*60+_controller.value.position.inHours*60*60.toDouble():0.0;
-      });
-    }
+
+  void _changeValue() {
+    setState(() {
+      _value >
+              _controller.value.duration.inSeconds +
+                  _controller.value.duration.inHours * 60 * 60 +
+                  _controller.value.duration.inMinutes * 60
+          ? _value = _controller.value.position.inSeconds +
+              _controller.value.position.inMinutes * 60 +
+              _controller.value.position.inHours * 60 * 60.toDouble()
+          : 0.0;
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -70,19 +80,28 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     }
     super.deactivate();
   }
- 
+  Widget _getMediaPlayer(){
+    return FutureBuilder(
+          future: _initializeVideoPlayerFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return _previewVideo(_controller);
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return _previewVideo(_controller);
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      
+    return Scaffold(
+      body: _isPortrait?Dialog(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.4,
+          child: _getMediaPlayer()),
+        
+      ):_getMediaPlayer(),
     );
   }
 
@@ -128,7 +147,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       setState(() {
                         _isStackOpen = !_isStackOpen;
                       });
-                      
                     },
                     child: Container(
                       height: controller.value.size.height,
@@ -137,63 +155,62 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Expanded(
-                            
-                              child: Padding(
-                                padding:  EdgeInsets.only(top:MediaQuery.of(context).padding.top),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.black54,
-                                          shape: BoxShape.circle),
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.arrow_left,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {},
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).padding.top),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.black54,
+                                        shape: BoxShape.circle),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.arrow_left,
+                                        color: Colors.white,
                                       ),
+                                      onPressed: () {},
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.black54,
-                                          shape: BoxShape.circle),
-                                      child: IconButton(
-                                        icon: Icon(
-                                          _controller.value.isPlaying
-                                              ? Icons.pause
-                                              : Icons.play_arrow,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            if (_controller.value.isPlaying) {
-                                              controller.pause();
-                                            } else {
-                                              controller.play();
-                                            }
-                                          });
-                                        },
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.black54,
+                                        shape: BoxShape.circle),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        _controller.value.isPlaying
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        color: Colors.white,
                                       ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_controller.value.isPlaying) {
+                                            controller.pause();
+                                          } else {
+                                            controller.play();
+                                          }
+                                        });
+                                      },
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.black54,
-                                          shape: BoxShape.circle),
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.arrow_right,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {},
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.black54,
+                                        shape: BoxShape.circle),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.arrow_right,
+                                        color: Colors.white,
                                       ),
+                                      onPressed: () {},
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            
+                            ),
                           ),
                           Row(
                             children: <Widget>[
@@ -202,25 +219,30 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                   onChanged: (double changedValue) {
                                     setState(() {
                                       _value = changedValue;
-                                       _controller.seekTo(Duration(seconds: changedValue.floor()));
+                                      _controller.seekTo(Duration(
+                                          seconds: changedValue.floor()));
                                     });
-                                    
                                   },
-                                  onChangeStart: (changedValue){
+                                  onChangeStart: (changedValue) {
                                     setState(() {
-                                      _value=changedValue;
+                                      _value = changedValue;
                                     });
                                   },
                                   value: _value,
                                   min: 0.0,
-                                  max: controller.value.duration.inSeconds.toDouble(),
+                                  max: controller.value.duration.inSeconds
+                                      .toDouble(),
                                   label: _value.toString(),
-
                                 ),
                               ),
                               InkWell(
                                 child: Padding(
-                                  padding:  EdgeInsets.only(left:0,right: 10.0+MediaQuery.of(context).padding.bottom),
+                                  padding: EdgeInsets.only(
+                                      left: 0,
+                                      right: 10.0 +
+                                          MediaQuery.of(context)
+                                              .padding
+                                              .bottom),
                                   child: Icon(
                                     _isPortrait
                                         ? Icons.fullscreen
@@ -263,6 +285,4 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       });
     }
   }
-
-  
 }

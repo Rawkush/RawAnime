@@ -4,7 +4,6 @@ import 'package:myapp/Provider/detail_page_provider.dart';
 import 'package:myapp/Provider/home_provider.dart';
 import 'package:myapp/Screen/DashBoard/dashBoard.dart';
 import 'package:myapp/Screen/DetailPage/detail_page.dart';
-import 'package:myapp/Widgets/dialog.dart';
 import 'package:myapp/Widgets/fade.dart';
 import 'package:provider/provider.dart';
 
@@ -28,8 +27,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData( 
         ),
         //home: DashBoard(),
-       // home: VideoPlayerScreen(),
-       home: CustomDialog(),
+       home: VideoPlayerScreen(),
+       
 
        routes: {
          "/detailPage":(context)=> DetailPage(),
