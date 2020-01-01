@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/Provider/home_provider.dart';
 import 'package:provider/provider.dart';
 
 class Search extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
@@ -16,14 +19,15 @@ class Search extends StatelessWidget {
             children: <Widget>[
               SizedBox(
                 height: _height * 0.30,
-                child: Image.asset(
-                  "assets/images/el.jpg",
+                width: _width,
+                child: Image.network(
+                  _searchProvider.itemsToShow[Random().nextInt(4)].img,
                   fit: BoxFit.cover,
                 ),
               ),
               Center(
                 child: Text(
-                  "Hey there!\nFeeling like a detective today...\nCheckout new pics of El",
+                  "Hey there! Bored?\nFind your favourite anime below.",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
