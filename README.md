@@ -1,4 +1,4 @@
-# Anime-Flutter Application
+# Anime-A Flutter Application
 
 A new Flutter project.
 
