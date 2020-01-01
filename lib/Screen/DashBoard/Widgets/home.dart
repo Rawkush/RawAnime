@@ -27,9 +27,10 @@ class Home extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
-              onTap: (){
+              onTap: () {
                 print(_homeProvider.homeList[index].id);
-                Navigator.of(context).pushNamed('/detailPage',arguments: _homeProvider.homeList[index].id);
+                Navigator.of(context).pushNamed('/detailPage',
+                    arguments: _homeProvider.homeList[index].id);
               },
               child: Container(
                 decoration: BoxDecoration(
