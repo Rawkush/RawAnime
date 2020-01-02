@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/Provider/detail_page_provider.dart';
 import 'package:myapp/Provider/home_provider.dart';
 import '../Widgets/text_form_field.dart';
+import '../Widgets/episode_list.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget {
@@ -20,9 +22,10 @@ class _DetailPageState extends State<DetailPage>
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
-    _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000))..addListener(()=>setState((){}));
-    
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
+          ..addListener(() => setState(() {}));
+
     _animationController.forward();
   }
 
@@ -37,6 +40,8 @@ class _DetailPageState extends State<DetailPage>
     final _id = ModalRoute.of(context).settings.arguments;
     final _homeProvider = Provider.of<HomeProvider>(context);
     final _currentitem = _homeProvider.getElementWithId(_id);
+    final _homePageProvider = Provider.of<DetailPageProvider>(context);
+    final _episodeList = _homePageProvider.episodeList;
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
 
@@ -51,93 +56,114 @@ class _DetailPageState extends State<DetailPage>
       //   ),
       //   title: Text(_currentitem.title),
       // ),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: _height * 0.37,
-              color: Colors.transparent,
-              child: AnimatedOpacity(
-                curve:Curves.easeIn,
-                duration: Duration(milliseconds: 300),
-                opacity: _animationController.value>0.10?1:0,
-                              child: Stack(
-                  children: <Widget>[
-                    Container(
-                      height: _height * 0.3,
-                      width: _width,
-                      constraints:
-                          BoxConstraints(maxHeight: _height > 600 ? 280 : 180),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30)),
-                          image: DecorationImage(
-                            image: NetworkImage(_currentitem.img),
-                            fit: BoxFit.fill,
-                          )),
-                    ),
-                    Positioned(
-                      left: _currentitem.title.length > 8
-                          ? _width * 0.1
-                          : _width * 0.2,
-                      right: _currentitem.title.length > 8
-                          ? _width * 0.1
-                          : _width * 0.2,
-                      bottom: _height * 0.03,
-                      child: Container(
+      body: Center(
+        child: ListView(
+            children: <Widget>[
+              Container(
+                height: _height * 0.37,
+                color: Colors.transparent,
+                child: AnimatedOpacity(
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 300),
+                  opacity: _animationController.value > 0.10 ? 1 : 0,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: _height * 0.3,
+                        width: _width,
+                        constraints:
+                            BoxConstraints(maxHeight: _height > 600 ? 280 : 180),
                         decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.95),
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(20))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minHeight: _height * 0.03,
-                              maxHeight: 60,
-                            ),
-                            child: Center(
-                              child: Text(
-                                _currentitem.title,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline
-                                    .copyWith(color: Colors.black),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                            image: DecorationImage(
+                              image: NetworkImage(_currentitem.img),
+                              fit: BoxFit.fill,
+                            )),
+                      ),
+                      Positioned(
+                        left: _currentitem.title.length > 8
+                            ? _width * 0.1
+                            : _width * 0.2,
+                        right: _currentitem.title.length > 8
+                            ? _width * 0.1
+                            : _width * 0.2,
+                        bottom: _height * 0.03,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.95),
+                              shape: BoxShape.rectangle,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                minHeight: _height * 0.03,
+                                maxHeight: 60,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  _currentitem.title,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline
+                                      .copyWith(color: Colors.black),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            AnimatedOpacity(
-                curve:Curves.easeIn,
+             
+              AnimatedOpacity(
+                curve: Curves.easeIn,
                 duration: Duration(milliseconds: 300),
-              opacity: _animationController.value>0.20?1:0,
-                          child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-                // child: Text("The red-tailed tropicbird is a seabird native to the tropical Indian and Pacific Oceans. One of three closely related species of tropicbird, it has four subspecies. Text wrapping is quite a pain for me too. I find that putting Text in a Container and then wrapping that container in a Expanded/Flexible works well.",style: Theme.of(context).textTheme.body1.copyWith(color: Colors.white),maxLines: 3,),
+                opacity: _animationController.value > 0.20 ? 1 : 0,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                  // child: Text("The red-tailed tropicbird is a seabird native to the tropical Indian and Pacific Oceans. One of three closely related species of tropicbird, it has four subspecies. Text wrapping is quite a pain for me too. I find that putting Text in a Container and then wrapping that container in a Expanded/Flexible works well.",style: Theme.of(context).textTheme.body1.copyWith(color: Colors.white),maxLines: 3,),
 
-                child: _text(),
+                  child: _text(),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            AnimatedOpacity(
-                curve:Curves.easeIn,
+              SizedBox(
+                height: 15,
+              ),
+              
+              Text("Episodes",style:Theme.of(context).textTheme.headline.copyWith(color: Colors.white)),
+              SizedBox(
+                height: 15,
+              ),
+              AnimatedOpacity(
+                curve: Curves.easeIn,
                 duration: Duration(milliseconds: 300),
-              opacity: _animationController.value>0.30?1:0,
-                          child: CustomTextFormField.MyTextFormField(
-                  _textEditingController, context),
-            ),
-          ],
-        ),
+                opacity: _animationController.value > 0.30 ? 1 : 0,
+                child: CustomTextFormField.MyTextFormField(
+                    _textEditingController, context),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              
+              Expanded(
+                child: AnimatedOpacity(
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 300),
+                  opacity: _animationController.value > 0.45 ? 1 : 0,
+                  child: EpisodeList.myEpisodeList(_episodeList),
+                ),
+              ),
+            ],
+          ),
       ),
+    
     );
   }
 
@@ -177,7 +203,7 @@ class _DetailPageState extends State<DetailPage>
                   ),
       );
     });
-    // return exceeded;
+ 
   }
 
   Widget _seeMoreLess(TextSpan span, String _text, [int maxLine = 0]) {
