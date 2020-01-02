@@ -1,34 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Provider/home_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:myapp/Model/home_model.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
+class HomeAnimeCard extends StatelessWidget {
+  final HomeModel _homeModel;
+  HomeAnimeCard(this._homeModel);
 
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
-    final _width = MediaQuery.of(context).size.width;
-    final _homeProvider = Provider.of<HomeProvider>(context);
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        height: _height,
-        width: _width,
-        decoration: BoxDecoration(color: Colors.black87),
-        child: GridView.builder(
-          itemCount: _homeProvider.homeList.length,
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 190,
-            childAspectRatio: 2 / 2.78,
-            mainAxisSpacing: 11,
-            crossAxisSpacing: 11,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return InkWell(
+    return InkWell(
               onTap: (){
-                print(_homeProvider.homeList[index].id);
-                Navigator.of(context).pushNamed('/detailPage',arguments: _homeProvider.homeList[index].id);
+                print(_homeModel.id);
+                Navigator.of(context).pushNamed('/detailPage',arguments: _homeModel.id);
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -44,7 +26,7 @@ class Home extends StatelessWidget {
                               topRight: Radius.circular(20)),
                           child: SizedBox.expand(
                             child: Image.network(
-                              _homeProvider.homeList[index].img,
+                              _homeModel.img,
                               fit: BoxFit.fill,
                             ),
                           )),
@@ -60,7 +42,7 @@ class Home extends StatelessWidget {
                           color: Colors.grey,
                           child: Center(
                             child: Text(
-                              _homeProvider.homeList[index].title.toString(),
+                              _homeModel.title.toString(),
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle
@@ -74,9 +56,5 @@ class Home extends StatelessWidget {
                 ),
               ),
             );
-          },
-        ),
-      ),
-    );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/Screen/DashBoard/Widgets/bookmark.dart';
-import 'package:myapp/Screen/DashBoard/Widgets/home.dart';
-import 'package:myapp/Screen/DashBoard/Widgets/search.dart';
+import 'package:myapp/Screen/bookmark.dart';
+import 'package:myapp/Screen/home.dart';
+import 'package:myapp/Screen/search.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key key}) : super(key: key);

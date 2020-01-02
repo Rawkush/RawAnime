@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/Provider/home_provider.dart';
-import 'package:myapp/Screen/DetailPage/widget/text_form_field.dart';
+import '../Widgets/text_form_field.dart';
 import 'package:provider/provider.dart';
 
 class DetailPage extends StatefulWidget {
