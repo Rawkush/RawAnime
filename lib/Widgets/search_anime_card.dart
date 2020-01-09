@@ -24,7 +24,7 @@ class SearchAnimeCard extends StatelessWidget {
                 height: _height * 0.25,
                 width: _width,
                 child: Image.network(
-                  _homeModel.img,
+                  _homeModel.image,
                   fit: BoxFit.cover,
                 ),
               ),

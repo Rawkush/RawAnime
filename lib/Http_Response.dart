@@ -3,16 +3,16 @@
 /*
 recently updated
 */
-class Updated_Anime {
+class LatestAnime {
   final String episode;
   final String img;
   final String url;
   final String title;
 
-  Updated_Anime({this.episode, this.img, this.url, this.title});
+  LatestAnime({this.episode, this.img, this.url, this.title});
 
-  factory Updated_Anime.fromJson(Map<String, dynamic> json) {
-    return Updated_Anime(
+  factory LatestAnime.fromJson(Map<String, dynamic> json) {
+    return LatestAnime(
       episode: json['episode'],
       img: json['img'],
       title: json['title'],
@@ -25,7 +25,7 @@ class Updated_Anime {
   Anime Content
 */
 
-class Anime_Content {
+class AnimeContent {
   final String episode;
   final String img;
   final String url;
@@ -34,30 +34,29 @@ class Anime_Content {
   final String summary;
   final String type;
   final String status;
-  final String other_name;
+  final String otherName;
   final String released;
 
-  Anime_Content({
+  AnimeContent({
       this.genre,
       this.summary,
       this.type,
       this.status,
-      this.other_name,
+      this.otherName,
       this.released,
       this.episode,
       this.img,
       this.url,
       this.title});
 
-  factory Anime_Content.fromJson(Map<String, dynamic> json) {
-    return Anime_Content(
+  factory AnimeContent.fromJson(Map<String, dynamic> json) {
+    return AnimeContent(
       episode: json['episode'],
       img: json['img'],
       title: json['title'],
       url: json['base_url'],
       type: json['others']['Type'],
-      status: json['others']['Status']
-      
+      status: json['others']['Status'],
     );
   }
 }

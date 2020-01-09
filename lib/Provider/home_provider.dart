@@ -1,85 +1,59 @@
 import 'package:flutter/cupertino.dart';
 import 'package:myapp/Model/home_model.dart';
+import '../Http_Response.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class HomeProvider with ChangeNotifier {
-  List<HomeModel> _homeList = [
-    HomeModel(
-        id: '1',
-        title: "title",
-        img:
-            "https://images.unsplash.com/photo-1577401749907-4613bde19b2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"),
-    HomeModel(
-        id: "2",
-        title:
-            "title thhgfhgv gkhghj hgljhhghj ljghljh hgljghjjh  fhjgkh jhghbkj jk",
-        img:
-            "https://images.unsplash.com/photo-1575540325855-4b5d285a3845?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"),
-    HomeModel(
-        id: "3",
-        title: "title",
-        img:
-            "https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"),
-    HomeModel(
-        id: "4",
-        title: "title",
-        img:
-            "https://images.unsplash.com/photo-1541562232579-512a21360020?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"),
+  List<LatestAnime> _latestAnime = [
   ];
 
-  List<HomeModel> get homeList {
-    return [..._homeList];
+  List<LatestAnime> get latestAnime {
+    return [..._latestAnime];
   }
 
   List<HomeModel> _itemsToShow = [
-    HomeModel(
-      id: '1',
-      title: "title",
-      img:
-          "https://images.unsplash.com/photo-1577401749907-4613bde19b2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    ),
-    HomeModel(
-      id: "2",
-      title:
-          "title thhgfhgv gkhghj hgljhhghj ljghljh hgljghjjh  fhjgkh jhghbkj jk",
-      img:
-          "https://images.unsplash.com/photo-1575540325855-4b5d285a3845?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    ),
-    HomeModel(
-      id: "3",
-      title: "title",
-      img:
-          "https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    ),
-    HomeModel(
-      id: "4",
-      title: "title",
-      img:
-          "https://images.unsplash.com/photo-1541562232579-512a21360020?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    ),
   ];
 
   List<HomeModel> get itemsToShow {
     return [..._itemsToShow];
   }
 
-  void search(String value) {
+  /* void search(String value) {
     _itemsToShow.clear();
     if (value == null)
-      _itemsToShow.addAll(_homeList);
+      _itemsToShow.addAll(_latestAnime);
     else if (value.isEmpty)
-      _itemsToShow.addAll(_homeList);
+      _itemsToShow.addAll(_latestAnime);
     else {
-      _homeList.forEach((item) {
+      _latestAnime.forEach((item) {
         if (item.title.toLowerCase().contains(value.toLowerCase()))
           _itemsToShow.add(item);
       });
     }
     notifyListeners();
-  }
+  } */
 
-  HomeModel getElementWithId(String id) {
-    return _homeList[_homeList.indexWhere((element) {
+  /* LatestAnime getElementWithId(String id) {
+    return _latestAnime[_latestAnime.indexWhere((element) {
       return element.id == id;
     })];
+  } */
+
+  Future<void> fetchLatestAnimes() async {
+    var url = 'https://rawanime.herokuapp.com/';
+    var data = {'intent': 'new'};
+    final response = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: json.encode(data));
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      var data = json.decode(response.body);
+      var rest = data["data"] as List;
+      _latestAnime = rest.map<LatestAnime>((json) => LatestAnime.fromJson(json)).toList();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post' + response.statusCode.toString());
+    }
   }
 }

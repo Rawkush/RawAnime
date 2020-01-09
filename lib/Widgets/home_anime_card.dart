@@ -1,60 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Model/home_model.dart';
+import 'package:myapp/Http_Response.dart';
 
 class HomeAnimeCard extends StatelessWidget {
-  final HomeModel _homeModel;
-  HomeAnimeCard(this._homeModel);
+  final LatestAnime _latestAnime;
+  HomeAnimeCard(this._latestAnime);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-              onTap: (){
-                print(_homeModel.id);
-                Navigator.of(context).pushNamed('/detailPage',arguments: _homeModel.id);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 4,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                          child: SizedBox.expand(
-                            child: Image.network(
-                              _homeModel.img,
-                              fit: BoxFit.fill,
-                            ),
-                          )),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          color: Colors.grey,
-                          child: Center(
-                            child: Text(
-                              _homeModel.title.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+      onTap: () {
+        //Navigator.of(context).pushNamed('/detailPage',arguments: _latestAnime.url);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Stack(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: SizedBox.expand(
+                child: Image.network(
+                  _latestAnime.img,
+                  fit: BoxFit.cover,
                 ),
               ),
-            );
+            ),
+            Positioned(
+              bottom: 10,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                width: MediaQuery.of(context).size.shortestSide * 0.4,
+                color: Colors.black54,
+                child: Center(
+                  child: Text(
+                    _latestAnime.title.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle
+                        .copyWith(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

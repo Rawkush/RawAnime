@@ -2,22 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/Model/episode_model.dart';
+import 'package:myapp/Provider/detail_page_provider.dart';
+import 'package:myapp/Widgets/episode_card.dart';
+import 'package:myapp/Widgets/video_overlay.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
-void main() => runApp(VideoPlayerApp());
-
-class VideoPlayerApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Video Player Demo',
-      home: VideoPlayerScreen(),
-    );
-  }
-}
-
 class VideoPlayerScreen extends StatefulWidget {
-  VideoPlayerScreen({Key key}) : super(key: key);
+  static const route = "/video_player_screen";
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -25,111 +18,190 @@ class VideoPlayerScreen extends StatefulWidget {
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   VideoPlayerController _controller;
-  VoidCallback listener;
-  Future<void> _initializeVideoPlayerFuture;
+  //Future<void> _initializeVideoPlayerFuture;
   bool isPlaying = false;
   bool _isPortrait = true;
   bool _isStackOpen = false;
-  double _value = 0.0;
+  //double _value = 0.0;
+  int _currentEpisodeIndex;
+  List<Episode> _episodes;
 
   @override
   void initState() {
-    _controller = VideoPlayerController.network(
-      'https://cloud.video.taobao.com/play/u/3954377811/p/1/e/6/t/10301/211251046834.mp4',
-    );
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setVolume(1);
-    _controller.setLooping(true);
-    //_controller.addListener(_changeValue);
-    _controller.addListener(() => setState(() {
-          _value = _controller.value.position.inSeconds.toDouble();
-        }));
-
     super.initState();
+    Future.delayed(Duration(milliseconds: 0), () {
+      _currentEpisodeIndex = ModalRoute.of(context).settings.arguments;
+      _episodes =
+          Provider.of<DetailPageProvider>(context, listen: false).episodeList;
+
+      setState(() {});
+
+      _initEpisode();
+    });
   }
 
-  void _changeValue() {
+  Future<void> _initEpisode() async {
+    _controller = VideoPlayerController.network(
+      _episodes[_currentEpisodeIndex].episodeUrl,
+    );
+    await _controller.initialize();
+    setState(() {});
+  }
+
+  void _changeEpisode(int flag) {
+    if ((_currentEpisodeIndex == 0 && flag == -1) ||
+        (_currentEpisodeIndex == _episodes.length - 1 && flag == 1)) return;
+
     setState(() {
-      _value >
-              _controller.value.duration.inSeconds +
-                  _controller.value.duration.inHours * 60 * 60 +
-                  _controller.value.duration.inMinutes * 60
-          ? _value = _controller.value.position.inSeconds +
-              _controller.value.position.inMinutes * 60 +
-              _controller.value.position.inHours * 60 * 60.toDouble()
-          : 0.0;
+      _controller = null;
     });
+    _currentEpisodeIndex += flag;
+    _initEpisode();
   }
 
   @override
   void dispose() {
     super.dispose();
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
     ]);
-    _orientation();
     _controller.dispose();
-  }
-
-  @override
-  void deactivate() {
-    if (_controller != null) {
-      _controller.setVolume(0.0);
-      _controller.removeListener(listener);
-    }
-    super.deactivate();
-  }
-  Widget _getMediaPlayer(){
-    return FutureBuilder(
-          future: _initializeVideoPlayerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return _previewVideo(_controller);
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isPortrait?Dialog(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: _getMediaPlayer()),
-        
-      ):_getMediaPlayer(),
+      body: _isPortrait
+          ? SafeArea(
+              child: Column(children: <Widget>[
+                _getMediaPlayer(),
+                Expanded(
+                  child: Container(
+                    child: Center(
+                      child: _episodes == null
+                          ? CircularProgressIndicator()
+                          : ListView.builder(
+                              padding: const EdgeInsets.only(top: 10),
+                              itemCount: _episodes.length,
+                              itemBuilder: (_, i) => Stack(children: [
+                                EpisodeCard(
+                                  _episodes[i],
+                                  i == _currentEpisodeIndex,
+                                ),
+                                Divider(height: 1,),
+                              ]),
+                            ),
+                    ),
+                  ),
+                ),
+              ]),
+            )
+          : SingleChildScrollView(
+              child: Column(children: <Widget>[
+                _getMediaPlayer(),
+                Container(
+                  child: Center(
+                    child: _episodes == null
+                        ? CircularProgressIndicator()
+                        : Column(
+                            children: <Widget>[
+                              const SizedBox(height: 10),
+                              ..._episodes
+                                  .map((episode) => Stack(
+                                        children: <Widget>[
+                                          EpisodeCard(
+                                            episode,
+                                            _episodes.indexOf(episode) ==
+                                                _currentEpisodeIndex,
+                                          ),
+                                          Divider(height: 1,),
+                                        ],
+                                      ))
+                                  .toList()
+                            ],
+                          ),
+                  ),
+                ),
+              ]),
+            ),
     );
   }
 
-  Widget _previewVideo(VideoPlayerController controller) {
-    final height = _isPortrait
-        ? MediaQuery.of(context).size.height * 0.4
-        : MediaQuery.of(context).size.height;
-    if (controller == null) {
+  Widget _getMediaPlayer() {
+    double _height, _width;
+    Widget _child;
+
+    if (_controller == null) {
+      _child = Center(
+        child: CircularProgressIndicator(),
+      );
+      if (_isPortrait) {
+        _height = MediaQuery.of(context).size.height * 0.3;
+        _width = MediaQuery.of(context).size.width;
+      } else {
+        _height = MediaQuery.of(context).size.height;
+        _width = MediaQuery.of(context).size.width;
+      }
+    } else {
+      if (_controller.value.initialized) {
+        _child = _previewVideo();
+        if (_isPortrait) {
+          _width = MediaQuery.of(context).size.width;
+          _height = _width / _controller.value.aspectRatio;
+        } else {
+          _height = MediaQuery.of(context).size.height;
+          _width = MediaQuery.of(context).size.width;
+        }
+      } else {
+        _child = Center(
+          child: CircularProgressIndicator(),
+        );
+        if (_isPortrait) {
+          _height = MediaQuery.of(context).size.height * 0.3;
+          _width = MediaQuery.of(context).size.width;
+        } else {
+          _height = MediaQuery.of(context).size.height;
+          _width = MediaQuery.of(context).size.width;
+        }
+      }
+    }
+
+    return Container(
+      height: _height,
+      width: _width,
+      child: Center(child: _child),
+      color: Colors.black,
+    );
+  }
+
+  Widget _previewVideo() {
+    double _height, _width;
+    if (_isPortrait) {
+      _width = MediaQuery.of(context).size.width;
+      _height = _width / _controller.value.aspectRatio;
+    } else {
+      _height = MediaQuery.of(context).size.height;
+      _width = _height * _controller.value.aspectRatio;
+    }
+
+    if (_controller == null) {
       isPlaying = false;
       return const Text('Please Select or Record a Video.');
-    } else if (controller.value.initialized) {
+    } else if (_controller.value.initialized) {
       return Container(
-        height: height,
+        width: _width,
+        height: _height,
         child: Stack(
           children: <Widget>[
             Positioned.fill(
               child: InkWell(
                   child: AspectRatio(
-                    aspectRatio: controller.value.aspectRatio,
+                    aspectRatio: _controller.value.aspectRatio,
                     child: VideoPlayer(
-                      controller,
+                      _controller,
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      _isStackOpen = !_isStackOpen;
-                    });
-                  },
+                  onTap: _toggleOverlay,
                   onDoubleTap: () {
                     if (isPlaying) {
                       _controller.pause();
@@ -142,122 +214,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             ),
             _isStackOpen
                 ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isStackOpen = !_isStackOpen;
-                      });
-                    },
-                    child: Container(
-                      height: controller.value.size.height,
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).padding.top),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black54,
-                                        shape: BoxShape.circle),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.arrow_left,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black54,
-                                        shape: BoxShape.circle),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        _controller.value.isPlaying
-                                            ? Icons.pause
-                                            : Icons.play_arrow,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (_controller.value.isPlaying) {
-                                            controller.pause();
-                                          } else {
-                                            controller.play();
-                                          }
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black54,
-                                        shape: BoxShape.circle),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.arrow_right,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Slider(
-                                  onChanged: (double changedValue) {
-                                    setState(() {
-                                      _value = changedValue;
-                                      _controller.seekTo(Duration(
-                                          seconds: changedValue.floor()));
-                                    });
-                                  },
-                                  onChangeStart: (changedValue) {
-                                    setState(() {
-                                      _value = changedValue;
-                                    });
-                                  },
-                                  value: _value,
-                                  min: 0.0,
-                                  max: controller.value.duration.inSeconds
-                                      .toDouble(),
-                                  label: _value.toString(),
-                                ),
-                              ),
-                              InkWell(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 0,
-                                      right: 10.0 +
-                                          MediaQuery.of(context)
-                                              .padding
-                                              .bottom),
-                                  child: Icon(
-                                    _isPortrait
-                                        ? Icons.fullscreen
-                                        : Icons.fullscreen_exit,
-                                    size: 33,
-                                  ),
-                                ),
-                                onTap: () => _orientation(),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                : VideoOverlay(
+                    _controller,
+                    _isPortrait,
+                    _toggleOverlay,
+                    _toggleOrientation,
+                    _changeEpisode,
+                  ),
           ],
         ),
       );
@@ -267,7 +230,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     }
   }
 
-  void _orientation() {
+  void _toggleOverlay() {
+    setState(() {
+      _isStackOpen = !_isStackOpen;
+    });
+  }
+
+  void _toggleOrientation() {
     if (_isPortrait) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,

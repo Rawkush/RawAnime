@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Model/episode_model.dart';
+import 'package:myapp/Provider/detail_page_provider.dart';
+import 'package:myapp/Widgets/media_player.dart';
+import 'package:provider/provider.dart';
 
-class EpisodeList {
-  static Widget myEpisodeList(List<EpisodeModel> _episodeList) {
+class EpisodeList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+  final _episodeList = Provider.of<DetailPageProvider>(context, listen: false).episodeList;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
       child: GridView.builder(
@@ -29,7 +33,12 @@ class EpisodeList {
                           .copyWith(color: Colors.white),
                     ),
                   )),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  VideoPlayerScreen.route,
+                  arguments: index,
+                );
+              },
             );
           }),
     );

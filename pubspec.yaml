@@ -25,6 +25,8 @@ dependencies:
   curved_navigation_bar: ^0.3.1 
   video_player:
   neeko: ^0.0.6
+  path: ^1.6.4
+  sqflite: ^1.2.0
     
 
   # The following adds the Cupertino Icons font to your application.

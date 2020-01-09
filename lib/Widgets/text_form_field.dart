@@ -13,13 +13,17 @@ class CustomTextFormField {
         textInputAction: TextInputAction.go,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-              borderRadius: const BorderRadius.all(Radius.circular(30))),
-          suffixIcon: IconButton(icon: Icon(Icons.search,color: Colors.white), onPressed: () {}),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.search, color: Colors.white),
+            onPressed: () {},
+          ),
           labelText: "Enter the Episode Number",
           labelStyle: TextStyle(
-          color: Colors.white,
-        ), 
+            color: Colors.white,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
             borderSide: BorderSide(),

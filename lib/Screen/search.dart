@@ -55,7 +55,7 @@ class Search extends StatelessWidget {
                           decoration: InputDecoration.collapsed(
                             hintText: "What are you looking for...",
                           ),
-                          onChanged: (value) => _searchProvider.search(value),
+                          //onChanged: (value) => _searchProvider.search(value),
                         ),
                       ),
                     ],

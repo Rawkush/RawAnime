@@ -1,5 +1,4 @@
-class EpisodeModel{
-  final String episodeNumber, episodeUrl;
-  EpisodeModel(this.episodeNumber, this.episodeUrl);
-
+class Episode{
+  final String episodeNumber, episodeUrl, thumbnail;
+  Episode(this.episodeNumber, this.episodeUrl, this.thumbnail);
 }
