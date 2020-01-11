@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Model/home_model.dart';
+import 'package:myapp/Model/search_model.dart';
 
 class SearchAnimeCard extends StatelessWidget {
-  final HomeModel _homeModel;
-  SearchAnimeCard(this._homeModel);
+  final SearchAnime _searchAnime;
+  SearchAnimeCard(this._searchAnime);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class SearchAnimeCard extends StatelessWidget {
                 height: _height * 0.25,
                 width: _width,
                 child: Image.network(
-                  _homeModel.image,
+                  _searchAnime.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -39,7 +39,7 @@ class SearchAnimeCard extends StatelessWidget {
                 width: _width * 0.7,
                 color: Colors.black54,
                 child: Text(
-                  _homeModel.title,
+                  _searchAnime.title,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

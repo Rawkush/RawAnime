@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/Http_Response.dart';
+import 'package:myapp/Model/popular_anime.dart';
 
-class HomeAnimeCard extends StatelessWidget {
-  final LatestAnime _latestAnime;
-  HomeAnimeCard(this._latestAnime);
+class PopularAnimeCard extends StatelessWidget {
+  final PopularAnime _popularAnime;
+  PopularAnimeCard(this._popularAnime);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,35 @@ class HomeAnimeCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               child: SizedBox.expand(
                 child: Image.network(
-                  _latestAnime.img,
+                  _popularAnime.image,
                   fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Positioned(
+              right: 10,
+              top: 15,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.black54,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 2,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                        size: 15,
+                      ),
+                      Text("${_popularAnime.rating}",
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -34,7 +61,7 @@ class HomeAnimeCard extends StatelessWidget {
                 color: Colors.black54,
                 child: Center(
                   child: Text(
-                    _latestAnime.title.toString(),
+                    _popularAnime.title.toString(),
                     style: Theme.of(context)
                         .textTheme
                         .subtitle

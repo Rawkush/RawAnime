@@ -80,15 +80,16 @@ class Search extends StatelessWidget {
               right: 5,
               bottom: 5,
             ),
-            itemCount: _searchProvider.itemsToShow.length,
+            itemCount: 3,//TODO _searchProvider.itemsToShow.length,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
-                  onTap: () {
+                  /*TODO onTap: () {
                     print(_searchProvider.itemsToShow[index].id);
                     Navigator.of(context).pushNamed('/detailPage',
                         arguments: _searchProvider.itemsToShow[index].id);
                   },
-                  child: SearchAnimeCard(_searchProvider.itemsToShow[index]));
+                  child: SearchAnimeCard(_searchProvider.itemsToShow[index]),*/
+              );
             },
           ),
         ),
