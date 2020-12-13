@@ -1,22 +1,59 @@
 import 'package:flutter/cupertino.dart';
-import 'package:myapp/Model/home_model.dart';
+import 'package:myapp/Model/latest_episode.dart';
+import 'package:myapp/Model/popular_anime.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
-class HomeProvider with ChangeNotifier{
-  List<HomeModel> _homeList=[
-    HomeModel(id:'1',title:"title", img:"https://images.unsplash.com/photo-1577401749907-4613bde19b2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", episode:"20"),
-    HomeModel(id:"2",title:"title thhgfhgv gkhghj hgljhhghj ljghljh hgljghjjh  fhjgkh jhghbkj jk", img:"https://images.unsplash.com/photo-1575540325855-4b5d285a3845?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", episode:"20"),
-    HomeModel(id:"3",title:"title", img:"https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", episode:"20"),
-    HomeModel(id:"4",title:"title", img:"https://images.unsplash.com/photo-1541562232579-512a21360020?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", episode:"20"),
+class HomeProvider with ChangeNotifier {
+
+  int currentPageLatestEpisodes=1, currentPagePopularAnimes=1, lastPageLatestEpisodes, lastPagePopularAnimes;
+
+  List<LatestEpisode> _latestEpisodes = [
   ];
 
+  List<PopularAnime> _popularAnimes = [
+  ];
 
-  List<HomeModel> get homeList{
-    return [..._homeList];
+  List<LatestEpisode> get latestEpisodes{
+    return [..._latestEpisodes];
   }
 
-  HomeModel getElementWithId(String id){
-    return _homeList[_homeList.indexWhere((element){return element.id==id;})];
-    notifyListeners();
+  List<PopularAnime> get popularAnimes{
+    return [..._popularAnimes];
   }
 
+  Future<void> fetchLatestEpisodes(int prevOrNext) async {
+    var url = 'https://animeflix.io/api/episodes/latest?limit=20&page=${currentPageLatestEpisodes+prevOrNext}';
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      var data = json.decode(response.body);
+      currentPageLatestEpisodes = data["meta"]["current_page"];
+      lastPageLatestEpisodes = data["meta"]["last_page"];
+      var episodesData = data["data"] as List;
+      _latestEpisodes = episodesData.map<LatestEpisode>((json) => LatestEpisode.fromJson(json)).toList();
+      notifyListeners();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post' + response.statusCode.toString());
+    }
+  }
+
+  Future<void> fetchPopularAnimes(int prevOrNext) async {
+    var url = 'https://animeflix.io/api/anime/popular?limit=20&page=${currentPagePopularAnimes+prevOrNext}';
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      var data = json.decode(response.body);
+      currentPagePopularAnimes = data["meta"]["current_page"];
+      lastPagePopularAnimes = data["meta"]["last_page"];
+      var animesData = data["data"] as List;
+      _popularAnimes = animesData.map<PopularAnime>((json) => PopularAnime.fromJson(json)).toList();
+      notifyListeners();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post-' + response.statusCode.toString());
+    }
+  }
 }
