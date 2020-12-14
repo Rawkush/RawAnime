@@ -11,7 +11,7 @@
    ![GitHub Repo stars](https://img.shields.io/github/stars/rawkush/rawanime?style=social)
    ![GitHub watchers](https://img.shields.io/github/watchers/rawkush/rawanime?style=social) <br/> 
    ![GitHub](https://img.shields.io/github/license/rawkush/rawanime?style=plastic) 
-   [![HitCount](http://hits.dwyl.com/rawkush/rawanime.svg)](http://hits.dwyl.com/rawkush/rawanime) <br/>
+![ViewCount](https://views.whatilearened.today/views/github/rawkush/rawanime.svg) <br/>
       ![GitHub all releases](https://img.shields.io/github/downloads/rawkush/rawanime/total?style=plastic) 
 
 An anime streaming app to watch all the Animes without any interruption or ads for free.
