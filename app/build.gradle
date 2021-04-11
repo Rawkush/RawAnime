@@ -38,6 +38,26 @@ plugins {
     }
 }
 
+
+kapt {
+    generateStubs = true
+    correctErrorTypes = true
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "${buildDir}/generated/source/kapt/main"
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
+
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -54,5 +74,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "jp.wasabeef:glide-transformations:$glide_transformations_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+
+
+
 
 }
