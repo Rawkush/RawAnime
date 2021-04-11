@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">RawAnime</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="poster">Poster</string>
+    <string name="score">Score</string>
+    <string name="top_airing">Top Airing</string>
+    <string name="more">More</string>
+    <string name="top_upcoming">Upcoming</string>
+    <string name="tv">TV</string>
+    <string name="backdrop_image">Backdrop Image</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque earum error minima qui quidem sunt, tempore veritatis vero vitae? Delectus, eveniet facere facilis laborum modi natus necessitatibus nihil odit provident repellendus repudiandae sequi temporibus?</string>
+    <string name="genres">Genres</string>
+    <string name="popularity">Popularity</string>
+    <string name="members">Members</string>
+    <string name="top_anime">Top Anime</string>
+    <string name="season">Season</string>
+    <string name="spring">Spring &#127793;</string>
+    <string name="summer">Summer &#127774;</string>
+    <string name="fall">Fall &#127810;</string>
+    <string name="winter">Winter &#10052;</string>
+    <string name="search">Search</string>
+    <string name="type_something">Type something :)</string>
+    <string name="movie">Movie</string>
+    <string name="characters">Famous Characters</string>
+    <string name="voice_actors">Voice Actors</string>
+    <string name="close">Close</string>
+    <string name="videos">Videos</string>
+    <string name="play">Play</string>
+    <string name="ova">Ova</string>
+</resources>
