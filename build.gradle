@@ -9,6 +9,9 @@ buildscript {
         paging_version = "2.1.2"
         glide_version = "4.11.0"
       glide_transformations_version   = "4.2.0"
+       moshi_version                   = "1.9.3"
+       logging_interceptor_version     = "4.8.0"
+
 
     }
     repositories {

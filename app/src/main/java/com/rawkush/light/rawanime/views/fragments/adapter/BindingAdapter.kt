@@ -4,6 +4,9 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
+/*
+    binds xml atribute with function here
+ */
 class BindingAdapter {
 
     @BindingAdapter("showImageFromUrl")
