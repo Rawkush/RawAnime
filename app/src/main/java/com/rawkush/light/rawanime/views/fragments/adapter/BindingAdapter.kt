@@ -7,11 +7,9 @@ import com.bumptech.glide.Glide
 /*
     binds xml atribute with function here
  */
-class BindingAdapter {
 
     @BindingAdapter("showImageFromUrl")
     fun showImageFromUrl(imageView: ImageView, url: String?) {
         Glide.with(imageView.context).load(url).into(imageView)
     }
 
-}
